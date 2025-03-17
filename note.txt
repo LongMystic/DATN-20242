@@ -1,0 +1,21 @@
+- connect hive to spark thrift:
+    !connect jdbc:hive2://spark-thriftserver:10000
+
+- at start hadoop:
+    run some cmd:
+        $ $HADOOP_HOME/bin/hadoop fs -mkdir       /tmp
+        $ $HADOOP_HOME/bin/hadoop fs -mkdir       /user/hive/warehouse
+        $ $HADOOP_HOME/bin/hadoop fs -chmod g+w   /tmp
+        $ $HADOOP_HOME/bin/hadoop fs -chmod g+w   /user/hive/warehouse
+
+beeline -u "jdbc:hive2://spark-thriftserver:10000" -n spark_user
+
+CREATE TABLE iceberg.default.long_test (
+  id INT,
+  name STRING
+)
+using iceberg
+
+
+link:
+1. https://cwiki.apache.org/confluence/display/Hive/GettingStarted

@@ -1,0 +1,424 @@
+version: '3'
+
+x-airflow-common:
+  &airflow-common
+  # In order to add custom dependencies or upgrade provider packages you can use your extended image.
+  # Comment the image line, place your Dockerfile in the directory where you placed the docker-compose.yaml
+  # and uncomment the "build" line below, Then run `docker-compose build` to build the images.
+#  image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:2.5.1}
+  build: .
+  environment:
+    &airflow-common-env
+    AIRFLOW__CORE__EXECUTOR: CeleryExecutor
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+    # For backward compatibility, with Airflow <2.3
+    AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres/airflow
+    AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
+    AIRFLOW__CORE__FERNET_KEY: ''
+    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
+    AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+    AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session'
+    _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
+  volumes:
+    - ./services/airflow/dags:/opt/airflow/dags
+    - ./services/airflow/logs:/opt/airflow/logs
+    - ./services/airflow/plugins:/opt/airflow/plugins
+    - ./common/airflow/jars:/opt/airflow/jars
+  user: "${AIRFLOW_UID:-50000}:0"
+  depends_on:
+    &airflow-common-depends-on
+    redis:
+      condition: service_healthy
+    postgres:
+      condition: service_healthy
+
+services:
+  zookeeper:
+    image: zookeeper:3.7
+    container_name: zookeeper_ha
+    ports:
+      - "2181:2181"
+    networks:
+      - datn_2025
+
+  namenode1:
+    image: bde2020/hadoop-namenode
+    container_name: namenode1
+    environment:
+      - HDFS_CONF_dfs_nameservices=mycluster
+      - CORE_CONF_fs_defaultFS=hdfs://namenode1:9000
+      - HDFS_CONF_dfs_replication=2
+      - HDFS_CONF_dfs_ha_namenodes=namenode1,namenode2
+      - HDFS_CONF_dfs_namenode_name_dir=/hadoop/dfs/namenode
+      - HDFS_CONF_dfs_client_failover_proxy_provider_hdfs=org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider
+      - HDFS_CONF_dfs_namenode_name_dir=file:///hadoop/dfs/namenode
+    volumes:
+      - ./hadoop/namenode1:/hadoop/dfs/namenode
+    networks:
+      - datn_2025
+    depends_on:
+      - zookeeper
+    ports:
+      - "9870:9870" # Web UI for NameNode1
+
+  namenode2:
+    image: bde2020/hadoop-namenode
+    container_name: namenode2
+    environment:
+      - HDFS_CONF_dfs_nameservices=mycluster
+      - CORE_CONF_fs_defaultFS=hdfs://namenode1:9000
+      - HDFS_CONF_dfs_replication=2
+      - HDFS_CONF_dfs_ha_namenodes=namenode1,namenode2
+      - HDFS_CONF_dfs_namenode_name_dir=/hadoop/dfs/namenode
+      - HDFS_CONF_dfs_client_failover_proxy_provider_hdfs=org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider
+      - HDFS_CONF_dfs_namenode_name_dir=file:///hadoop/dfs/namenode
+    volumes:
+      - ./hadoop/namenode2:/hadoop/dfs/namenode
+    networks:
+      - datn_2025
+    depends_on:
+      - zookeeper
+    ports:
+      - "9871:9871" # Web UI for NameNode2
+
+  datanode1:
+    image: bde2020/hadoop-datanode
+    container_name: datanode1
+    environment:
+      - CORE_CONF_fs_defaultFS=hdfs://namenode1:9000
+      - HDFS_CONF_dfs_datanode_data_dir=/hadoop/dfs/datanode
+      - HDFS_CONF_dfs_nameservices=mycluster
+    volumes:
+      - ./hadoop/datanode1:/hadoop/dfs/datanode
+    networks:
+      - datn_2025
+
+  datanode2:
+    image: bde2020/hadoop-datanode
+    container_name: datanode2
+    environment:
+      - CORE_CONF_fs_defaultFS=hdfs://namenode1:9000
+      - HDFS_CONF_dfs_datanode_data_dir=/hadoop/dfs/datanode
+      - HDFS_CONF_dfs_nameservices=mycluster
+    volumes:
+      - ./hadoop/datanode2:/hadoop/dfs/datanode
+    networks:
+      - datn_2025
+
+  resourcemanager:
+    image: bde2020/hadoop-resourcemanager
+    container_name: resourcemanager
+    environment:
+      - YARN_CONF_yarn_resourcemanager_hostname=resourcemanager
+    networks:
+      - datn_2025
+    ports:
+      - "8088:8088" # Web UI for ResourceManager
+
+  nodemanager1:
+    image: bde2020/hadoop-nodemanager
+    container_name: nodemanager1
+    networks:
+      - datn_2025
+
+  nodemanager2:
+    image: bde2020/hadoop-nodemanager
+    container_name: nodemanager2
+    networks:
+      - datn_2025
+
+  # contain spark for job processing and SQL engine (spark thrift)
+  spark-master:
+    container_name: spark-master
+    image: bitnami/spark:latest
+    command: >
+      bash -c "pip install pyspark && bin/spark-class org.apache.spark.deploy.master.Master"
+    ports:
+      - "9090:8080"
+      - "7077:7077"
+    volumes:
+      - ./spark:/opt/spark/data
+      - ./jars:/opt/spark/jars
+    environment:
+      NLTK_DATA: /tmp/nltk_data
+    networks:
+      - reddit-streaming
+  spark-worker:
+    container_name: spark-worker
+    image: bitnami/spark:latest
+    command: >
+      bash -c "pip install pyspark nltk && python3 -m nltk.downloader -d /tmp/nltk_data vader_lexicon &&\
+      bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077"
+    depends_on:
+      - spark-master
+    environment:
+      SPARK_MODE: worker
+      SPARK_WORKER_CORES: 2
+      SPARK_WORKER_MEMORY: 1g
+      SPARK_MASTER_URL: spark://spark-master:7077
+      NLTK_DATA: /tmp/nltk_data
+    volumes:
+      - ./spark:/opt/spark/data
+      - ./jars:/opt/spark/jars
+    networks:
+      - reddit-streaming
+
+  # hive + mysql for hive metastore
+  mysql-hive:
+#    deploy:
+#      resources:
+#        reservations:
+#          memory: 1G # Set memory reservation (minimum guaranteed)
+#        limits:
+#          memory: 1G
+    networks:
+      default_net:
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
+    container_name: mysql-hive
+    hostname: mysql-hive
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "--password=root" ]
+      interval: 1s
+      timeout: 20s
+      retries: 5
+    volumes:
+      - ./mysql-hive:/var/lib/mysql
+    restart: always
+
+  hive:
+#    deploy:
+#      resources:
+#        reservations:
+#          memory: 1G # Set memory reservation (minimum guaranteed)
+#        limits:
+#          memory: 1G
+    networks:
+      default_net:
+    user: root
+    image: apache/hive:3.1.3
+    container_name: metastore
+    hostname: metastore
+    depends_on:
+      mysql-hive:
+        condition: service_healthy
+    ports:
+      - "9083:9083"
+    environment:
+      - DB_DRIVER=mysql
+      - SERVICE_NAME=metastore
+      - IS_RESUME=${RESUME_METASTORE:-true}
+    volumes:
+      - ./config/hive-site.xml:/opt/hive/conf/hive-site.xml
+      - ./jars/mysql-connector-java-8.0.17.jar:/opt/hive/lib/mysql-connector-java-8.0.17.jar
+    restart: always
+
+  # superset for query and create dashboard
+  superset:
+#    deploy:
+#      resources:
+#        reservations:
+#          memory: 1G # Set memory reservation (minimum guaranteed)
+#        limits:
+#          memory: 1G
+    build: ./services/superset/
+    container_name: superset
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      SUPERSET_SECRET_KEY: your_secret_key_here
+    volumes:
+      -
+
+
+
+  # airflow + postgres + redis
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    volumes:
+      - postgres-db-volume:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "airflow" ]
+      interval: 5s
+      retries: 5
+    restart: always
+
+  redis:
+    image: redis:latest
+    expose:
+      - 6379
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 5s
+      timeout: 30s
+      retries: 50
+    restart: always
+
+  airflow-webserver:
+    <<: *airflow-common
+    command: webserver
+    ports:
+      - 8080:8080
+    healthcheck:
+      test: [ "CMD", "curl", "--fail", "http://localhost:8080/health" ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    restart: always
+    depends_on:
+      <<: *airflow-common-depends-on
+      airflow-init:
+        condition: service_completed_successfully
+
+  airflow-scheduler:
+    <<: *airflow-common
+    command: scheduler
+    healthcheck:
+      test: [ "CMD-SHELL", 'airflow jobs check --job-type SchedulerJob --hostname "$${HOSTNAME}"' ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    restart: always
+    depends_on:
+      <<: *airflow-common-depends-on
+      airflow-init:
+        condition: service_completed_successfully
+
+  airflow-worker:
+    <<: *airflow-common
+    command: celery worker
+    healthcheck:
+      test:
+        - "CMD-SHELL"
+        - 'celery --app airflow.executors.celery_executor.app inspect ping -d "celery@$${HOSTNAME}"'
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    environment:
+      <<: *airflow-common-env
+      # Required to handle warm shutdown of the celery workers properly
+      # See https://airflow.apache.org/docs/docker-stack/entrypoint.html#signal-propagation
+      DUMB_INIT_SETSID: "0"
+    restart: always
+    depends_on:
+      <<: *airflow-common-depends-on
+      airflow-init:
+        condition: service_completed_successfully
+
+  airflow-triggerer:
+    <<: *airflow-common
+    command: triggerer
+    healthcheck:
+      test: [ "CMD-SHELL", 'airflow jobs check --job-type TriggererJob --hostname "$${HOSTNAME}"' ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    restart: always
+    depends_on:
+      <<: *airflow-common-depends-on
+      airflow-init:
+        condition: service_completed_successfully
+
+  airflow-init:
+    <<: *airflow-common
+    entrypoint: /bin/bash
+    # yamllint disable rule:line-length
+    command:
+      - -c
+      - |
+        function ver() {
+          printf "%04d%04d%04d%04d" $${1//./ }
+        }
+        airflow_version=$$(AIRFLOW__LOGGING__LOGGING_LEVEL=INFO && gosu airflow airflow version)
+        airflow_version_comparable=$$(ver $${airflow_version})
+        min_airflow_version=2.2.0
+        min_airflow_version_comparable=$$(ver $${min_airflow_version})
+        if (( airflow_version_comparable < min_airflow_version_comparable )); then
+          echo
+          echo -e "\033[1;31mERROR!!!: Too old Airflow version $${airflow_version}!\e[0m"
+          echo "The minimum Airflow version supported: $${min_airflow_version}. Only use this or higher!"
+          echo
+          exit 1
+        fi
+        if [[ -z "${AIRFLOW_UID}" ]]; then
+          echo
+          echo -e "\033[1;33mWARNING!!!: AIRFLOW_UID not set!\e[0m"
+          echo "If you are on Linux, you SHOULD follow the instructions below to set "
+          echo "AIRFLOW_UID environment variable, otherwise files will be owned by root."
+          echo "For other operating systems you can get rid of the warning with manually created .env file:"
+          echo "    See: https://airflow.apache.org/docs/apache-airflow/stable/howto/docker-compose/index.html#setting-the-right-airflow-user"
+          echo
+        fi
+        one_meg=1048576
+        mem_available=$$(($$(getconf _PHYS_PAGES) * $$(getconf PAGE_SIZE) / one_meg))
+        cpus_available=$$(grep -cE 'cpu[0-9]+' /proc/stat)
+        disk_available=$$(df / | tail -1 | awk '{print $$4}')
+        warning_resources="false"
+        if (( mem_available < 4000 )) ; then
+          echo
+          echo -e "\033[1;33mWARNING!!!: Not enough memory available for Docker.\e[0m"
+          echo "At least 4GB of memory required. You have $$(numfmt --to iec $$((mem_available * one_meg)))"
+          echo
+          warning_resources="true"
+        fi
+        if (( cpus_available < 2 )); then
+          echo
+          echo -e "\033[1;33mWARNING!!!: Not enough CPUS available for Docker.\e[0m"
+          echo "At least 2 CPUs recommended. You have $${cpus_available}"
+          echo
+          warning_resources="true"
+        fi
+        if (( disk_available < one_meg * 10 )); then
+          echo
+          echo -e "\033[1;33mWARNING!!!: Not enough Disk space available for Docker.\e[0m"
+          echo "At least 10 GBs recommended. You have $$(numfmt --to iec $$((disk_available * 1024 )))"
+          echo
+          warning_resources="true"
+        fi
+        if [[ $${warning_resources} == "true" ]]; then
+          echo
+          echo -e "\033[1;33mWARNING!!!: You have not enough resources to run Airflow (see above)!\e[0m"
+          echo "Please follow the instructions to increase amount of resources available:"
+          echo "   https://airflow.apache.org/docs/apache-airflow/stable/howto/docker-compose/index.html#before-you-begin"
+          echo
+        fi
+        mkdir -p /sources/logs /sources/dags /sources/plugins
+        chown -R "${AIRFLOW_UID}:0" /sources/{logs,dags,plugins}
+        exec /entrypoint airflow version
+    # yamllint enable rule:line-length
+    environment:
+      <<: *airflow-common-env
+      _AIRFLOW_DB_UPGRADE: 'true'
+      _AIRFLOW_WWW_USER_CREATE: 'true'
+      _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME:-airflow}
+      _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD:-airflow}
+      _PIP_ADDITIONAL_REQUIREMENTS: ''
+    user: "0:0"
+    volumes:
+      - ${AIRFLOW_PROJ_DIR:-.}:/sources
+
+  airflow-cli:
+    <<: *airflow-common
+    profiles:
+      - debug
+    environment:
+      <<: *airflow-common-env
+      CONNECTION_CHECK_MAX_COUNT: "0"
+    # Workaround for entrypoint issue. See: https://github.com/apache/airflow/issues/16252
+    command:
+      - bash
+      - -c
+      - airflow
+
+
+volumes:
+  postgres-db-volume:

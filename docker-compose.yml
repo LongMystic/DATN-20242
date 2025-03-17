@@ -1,0 +1,298 @@
+version: '1'
+
+services:
+  hive-metastore-mysql:
+    image: mysql:5.7
+    container_name: hive-metastore-mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: metastore
+      MYSQL_USER: hive
+      MYSQL_PASSWORD: hive
+    ports:
+      - "3309:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "--password=root"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - lakehouse-network
+
+  hive-metastore:
+    image: apache/hive:3.1.3
+    container_name: hive-metastore
+    environment:
+      - HIVE_CONF_DIR=/opt/hive/conf
+      - HIVE_AUX_JARS_PATH=/opt/hive/lib
+      - HADOOP_HOME=/opt/hadoop
+      - HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop
+      - HIVE_METASTORE_PORT=9083
+      - HIVE_METASTORE_HOST=hive-metastore
+      - HIVE_SERVER2_THRIFT_BIND_HOST=hive-metastore
+      - HIVE_SERVER2_THRIFT_PORT=10000
+      - HIVE_SERVER2_TRANSPORT_MODE=binary
+      - DB_TYPE=mysql
+    volumes:
+      - ./services/hive/conf/hive-site.xml:/opt/hive/conf/hive-site.xml
+      - ./services/hive/jars/mysql-connector-java-8.0.21.jar:/opt/hive/lib/mysql-connector-java-8.0.21.jar
+    entrypoint: ["/bin/bash", "-c", "
+      if ! mysql -h hive-metastore-mysql -u root -proot -e 'use metastore; SELECT * FROM CTLGS LIMIT 1;' &> /dev/null; then
+        echo 'Initializing schema...';
+        /opt/hive/bin/schematool -dbType mysql -initSchema;
+      else
+        echo 'Schema already exists. Skipping initialization.';
+      fi;
+      /opt/hive/bin/hive --service metastore
+    "]
+    ports:
+      - "9084:9083"
+    networks:
+      - lakehouse-network
+    depends_on:
+        hive-metastore-mysql:
+          condition: service_healthy
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "9083"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  
+  namenode:
+    image: bde2020/hadoop-namenode:2.0.0-hadoop3.2.1-java8
+    container_name: namenode
+    user: root
+    environment:
+      - CLUSTER_NAME=test
+    ports:
+      - "9870:9870" # Web UI
+      - "8020:8020" # File system
+    networks:
+      - lakehouse-network
+    volumes:
+      - ./services/hadoop/conf/core-site.xml:/etc/hadoop/core-site.xml
+      - ./services/hadoop/conf/hdfs-site.xml:/etc/hadoop/hdfs-site.xml
+      - ./services/hadoop/conf/mapred-site.xml:/etc/hadoop/mapred-site.xml
+      - ./services/hadoop/conf/yarn-site.xml:/etc/hadoop/yarn-site.xml
+#    command: ["sh", "-c", "hdfs namenode -format -force && /entrypoint.sh"]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9870"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  datanode:
+    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
+    container_name: datanode
+    environment:
+      SERVICE_PRECONDITION: "namenode:9870"
+    networks:
+      - lakehouse-network
+    volumes:
+      - ./services/hadoop/conf/core-site.xml:/etc/hadoop/core-site.xml
+      - ./services/hadoop/conf/hdfs-site.xml:/etc/hadoop/hdfs-site.xml
+      - ./services/hadoop/conf/mapred-site.xml:/etc/hadoop/mapred-site.xml
+      - ./services/hadoop/conf/yarn-site.xml:/etc/hadoop/yarn-site.xml
+#    command: ["hdfs", "datanode"]
+    depends_on:
+      - namenode
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9864" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    
+#  resourcemanager:
+#    image: bde2020/hadoop-resourcemanager:2.0.0-hadoop3.2.1-java8
+#    container_name: resourcemanager
+#    environment:
+#      - SERVICE_PRECONDITION=namenode:9870
+#    ports:
+#      - "8088:8088"
+#    networks:
+#      - lakehouse-network
+#    volumes:
+#      - ./services/hadoop/conf/core-site.xml:/etc/hadoop/core-site.xml
+#      - ./services/hadoop/conf/hdfs-site.xml:/etc/hadoop/hdfs-site.xml
+#      - ./services/hadoop/conf/mapred-site.xml:/etc/hadoop/mapred-site.xml
+#      - ./services/hadoop/conf/yarn-site.xml:/etc/hadoop/yarn-site.xml
+#    depends_on:
+#      - namenode
+#
+#  nodemanager:
+#    image: bde2020/hadoop-nodemanager:2.0.0-hadoop3.2.1-java8
+#    container_name: nodemanager
+#    environment:
+#      - SERVICE_PRECONDITION=resourcemanager:8088
+#    networks:
+#      - lakehouse-network
+#    volumes:
+#      - ./services/hadoop/conf/core-site.xml:/etc/hadoop/core-site.xml
+#      - ./services/hadoop/conf/hdfs-site.xml:/etc/hadoop/hdfs-site.xml
+#      - ./services/hadoop/conf/mapred-site.xml:/etc/hadoop/mapred-site.xml
+#      - ./services/hadoop/conf/yarn-site.xml:/etc/hadoop/yarn-site.xml
+#    depends_on:
+#      - resourcemanager
+#
+#  historyserver:
+#    image: bde2020/hadoop-historyserver:2.0.0-hadoop3.2.1-java8
+#    container_name: historyserver
+#    environment:
+#      - SERVICE_PRECONDITION=resourcemanager:8088
+#    ports:
+#      - "8188:8188"
+#    networks:
+#      - lakehouse-network
+#    volumes:
+#      - ./services/hadoop/conf/core-site.xml:/etc/hadoop/core-site.xml
+#      - ./services/hadoop/conf/hdfs-site.xml:/etc/hadoop/hdfs-site.xml
+#      - ./services/hadoop/conf/mapred-site.xml:/etc/hadoop/mapred-site.xml
+#      - ./services/hadoop/conf/yarn-site.xml:/etc/hadoop/yarn-site.xml
+#    depends_on:
+#      - resourcemanager
+
+  # Spark Master
+  spark-master:
+    image: bitnami/spark:3.3.1
+    container_name: spark-master
+    environment:
+      - SPARK_MODE=master
+      - SPARK_MASTER_HOST=spark-master
+      - SPARK_MASTER_PORT=7077
+      - SPARK_CONF_DIR=/opt/bitnami/spark/conf
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+    volumes:
+      - ./services/spark/conf/spark-defaults.conf:/opt/bitnami/spark/conf/spark-defaults.conf
+      - ./services/hive/conf/hive-site.xml:/opt/bitnami/spark/conf/hive-site.xml
+      - ./services/hadoop/conf/core-site.xml:/opt/bitnami/spark/conf/core-site.xml
+      - ./services/hadoop/conf/hdfs-site.xml:/opt/bitnami/spark/conf/hdfs-site.xml
+      - ./services/spark/jars/mysql-connector-java-8.0.21.jar:/opt/bitnami/spark/jars/mysql-connector-java-8.0.21.jar
+      - ./services/spark/jars/iceberg-spark-runtime-3.3_2.12-1.3.0.jar:/opt/bitnami/spark/jars/iceberg-spark-runtime-3.3_2.12-1.3.0.jar
+    ports:
+      - "7077:7077" # spark master port
+      - "8080:8080" # web UI
+    networks:
+      - lakehouse-network
+    depends_on:
+      - hive-metastore
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Spark Thrift Server (separate from master)
+  spark-thriftserver:
+    image: bitnami/spark:3.3.1
+    container_name: spark-thriftserver
+    environment:
+      - SPARK_MODE=master  # Acting as worker, but will run thrift server
+      - SPARK_MASTER_URL=spark://spark-master:7077
+      - SPARK_CONF_DIR=/opt/bitnami/spark/conf
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+    volumes:
+      - ./services/spark/conf/spark-defaults.conf:/opt/bitnami/spark/conf/spark-defaults.conf
+      - ./services/hive/conf/hive-site.xml:/opt/bitnami/spark/conf/hive-site.xml
+      - ./services/hadoop/conf/core-site.xml:/opt/bitnami/spark/conf/core-site.xml
+      - ./services/hadoop/conf/hdfs-site.xml:/opt/bitnami/spark/conf/hdfs-site.xml
+      - ./services/spark/jars/mysql-connector-java-8.0.21.jar:/opt/bitnami/spark/jars/mysql-connector-java-8.0.21.jar
+      - ./services/spark/jars/iceberg-spark-runtime-3.3_2.12-1.3.0.jar:/opt/bitnami/spark/jars/iceberg-spark-runtime-3.3_2.12-1.3.0.jar
+    ports:
+      - "10000:10000" # thrift server port
+      - "4040:4040" # spark UI
+    networks:
+      - lakehouse-network
+    depends_on:
+      - spark-master
+      - hive-metastore
+    command: ["/opt/bitnami/spark/bin/spark-submit", "--class", "org.apache.spark.sql.hive.thriftserver.HiveThriftServer2", "--master", "spark://spark-master:7077", "--name", "Thrift JDBC/ODBC Server" ]
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "localhost", "10000" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Spark Worker
+  spark-worker:
+    image: bitnami/spark:3.3.1
+    container_name: spark-worker
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+      - SPARK_CONF_DIR=/opt/bitnami/spark/conf
+      - SPARK_WORKER_MEMORY=1G
+      - SPARK_WORKER_CORES=1
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+    volumes:
+      - ./services/spark/conf/spark-defaults.conf:/opt/bitnami/spark/conf/spark-defaults.conf
+      - ./services/hive/conf/hive-site.xml:/opt/bitnami/spark/conf/hive-site.xml
+      - ./services/hadoop/conf/core-site.xml:/opt/bitnami/spark/conf/core-site.xml
+      - ./services/hadoop/conf/hdfs-site.xml:/opt/bitnami/spark/conf/hdfs-site.xml
+      - ./services/spark/jars/mysql-connector-java-8.0.21.jar:/opt/bitnami/spark/jars/mysql-connector-java-8.0.21.jar
+      - ./services/spark/jars/iceberg-spark-runtime-3.3_2.12-1.3.0.jar:/opt/bitnami/spark/jars/iceberg-spark-runtime-3.3_2.12-1.3.0.jar
+    depends_on:
+      - spark-master
+    networks:
+      - lakehouse-network
+
+  # Superset
+  superset:
+    image: apache/superset
+#    build:
+#      ./services/superset/
+    container_name: superset
+    hostname: superset
+#    depends_on:
+#      - spark-thriftserver
+    ports:
+      - "8088:8088"
+    volumes:
+      - ./services/superset/conf/superset_config.py:/app/pythonpath/superset_config.py
+    environment:
+      - SUPERSET_CONFIG_PATH=/app/pythonpath/superset_config.py
+    networks:
+      - lakehouse-network
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8088/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Grafana
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    hostname: grafana
+    ports:
+      - "3000:3000"
+#    volumes:
+#      - ./grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    networks:
+      - lakehouse-network
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:3000/api/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  
+networks:
+  lakehouse-network:
+    driver: bridge
+
+volumes:
+  namenode:
+  datanode:
+  ivy2: 
