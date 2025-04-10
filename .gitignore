@@ -169,3 +169,6 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+/services/airflow/logs/
+/services/postgres/data/

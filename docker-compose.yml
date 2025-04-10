@@ -1,15 +1,480 @@
+x-airflow-common:
+  &airflow-common
+  image: apache/airflow:2.6.1
+  # build: .
+  environment:
+    &airflow-common-env
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+    # For backward compatibility, with Airflow <2.3
+    AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres/airflow
+    AIRFLOW__CORE__FERNET_KEY: ''
+    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
+    AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+    AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session'
+    # yamllint disable rule:line-length
+    # Use simple http server on scheduler for health checks
+    # See https://airflow.apache.org/docs/apache-airflow/stable/administration-and-deployment/logging-monitoring/check-health.html#scheduler-health-check-server
+    # yamllint enable rule:line-length
+    AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: 'true'
+    # WARNING: Use _PIP_ADDITIONAL_REQUIREMENTS option ONLY for a quick checks
+    # for other purpose (development, test and especially production usage) build/extend Airflow image.
+    _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
+  volumes:
+    - ./services/airflow/dags:/opt/airflow/dags
+    - ./services/airflow/logs:/opt/airflow/logs
+    - ./services/airflow/config:/opt/airflow/config
+    - ./services/airflow/plugins:/opt/airflow/plugins
+    - ./services/airflow/config/airflow.cfg:/opt/airflow/airflow.cfg
+  user: "0"
+  depends_on:
+    &airflow-common-depends-on
+    postgres:
+      condition: service_healthy
+
 services:
-  hadoop:
+  # HDFS: namenode
+  namenode:
+    image: bde2020/hadoop-namenode:2.0.0-hadoop3.2.1-java8
+    container_name: namenode
+    environment:
+      - CLUSTER_NAME=datn_2025
+      - HADOOP_CONF_DIR=/etc/hadoop
+    ports:
+      - "9870:9870"
+      - "8020:8020"
+    volumes:
+      - ./services/hadoop/conf/core-site.xml:/etc/hadoop/core-site.xml
+      - ./services/hadoop/conf/hdfs-site.xml:/etc/hadoop/hdfs-site.xml
+      # - ./services/hadoop/conf/mapred-site.xml:/etc/hadoop/mapred-site.xml
+      - ./services/hadoop/conf/yarn-site.xml:/etc/hadoop/yarn-site.xml
+      - ./services/hadoop/conf/capacity-scheduler.xml:/etc/hadoop/capacity-scheduler.xml
+      # - namenode_data:/hadoop/dfs/name
+    networks:
+      - datn_2025_network
+  
+  # HDFS: datanode
+  datanode1:
+    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
+    container_name: datanode1
+    # environment:
+    volumes:
+      - ./services/hadoop/conf/core-site.xml:/etc/hadoop/core-site.xml
+      - ./services/hadoop/conf/hdfs-site.xml:/etc/hadoop/hdfs-site.xml
+      # - ./services/hadoop/conf/mapred-site.xml:/etc/hadoop/mapred-site.xml
+      - ./services/hadoop/conf/yarn-site.xml:/etc/hadoop/yarn-site.xml
+      - ./services/hadoop/conf/capacity-scheduler.xml:/etc/hadoop/capacity-scheduler.xml
+      # - datanode_data:/hadoop/dfs/data
+    networks:
+      - datn_2025_network
+  
+  datanode2:
+    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
+    container_name: datanode2
+    # environment:
+    volumes:
+      - ./services/hadoop/conf/core-site.xml:/etc/hadoop/core-site.xml
+      - ./services/hadoop/conf/hdfs-site.xml:/etc/hadoop/hdfs-site.xml
+      # - ./services/hadoop/conf/mapred-site.xml:/etc/hadoop/mapred-site.xml
+      - ./services/hadoop/conf/yarn-site.xml:/etc/hadoop/yarn-site.xml
+      - ./services/hadoop/conf/capacity-scheduler.xml:/etc/hadoop/capacity-scheduler.xml
+      # - datanode_data:/hadoop/dfs/data
+    networks:
+      - datn_2025_network
+  
+  # YARN: 
+  resourcemanager:
+    image: bde2020/hadoop-resourcemanager:2.0.0-hadoop3.2.1-java8
+    container_name: resourcemanager
+    hostname: resourcemanager
+    environment:
+      - HADOOP_CONF_DIR=/etc/hadoop
+    volumes:
+      - ./services/hadoop/conf/core-site.xml:/etc/hadoop/core-site.xml
+      - ./services/hadoop/conf/hdfs-site.xml:/etc/hadoop/hdfs-site.xml
+      # - ./services/hadoop/conf/mapred-site.xml:/etc/hadoop/mapred-site.xml
+      - ./services/hadoop/conf/yarn-site.xml:/etc/hadoop/yarn-site.xml
+      - ./services/hadoop/conf/capacity-scheduler.xml:/etc/hadoop/capacity-scheduler.xml
+    ports:
+      - "8088:8088"
+      - "8032:8032"
+    networks:
+      - datn_2025_network
 
-  # contain spark for job processing and SQL engine (spark thrift)
-  spark:
+  nodemanager1:
+    image: bde2020/hadoop-nodemanager:2.0.0-hadoop3.2.1-java8
+    container_name: nodemanager1
+    environment:
+      - HADOOP_CONF_DIR=/etc/hadoop
+    volumes:
+      - ./services/hadoop/conf/core-site.xml:/etc/hadoop/core-site.xml
+      - ./services/hadoop/conf/hdfs-site.xml:/etc/hadoop/hdfs-site.xml
+      # - ./services/hadoop/conf/mapred-site.xml:/etc/hadoop/mapred-site.xml
+      - ./services/hadoop/conf/yarn-site.xml:/etc/hadoop/yarn-site.xml
+      - ./services/hadoop/conf/capacity-scheduler.xml:/etc/hadoop/capacity-scheduler.xml
+    networks:
+      - datn_2025_network
 
-  # hive + mysql for hive metastore
-  hive:
+  nodemanager2:
+    image: bde2020/hadoop-nodemanager:2.0.0-hadoop3.2.1-java8
+    container_name: nodemanager2
+    environment:
+      - HADOOP_CONF_DIR=/etc/hadoop
+    volumes:
+      - ./services/hadoop/conf/core-site.xml:/etc/hadoop/core-site.xml
+      - ./services/hadoop/conf/hdfs-site.xml:/etc/hadoop/hdfs-site.xml
+      # - ./services/hadoop/conf/mapred-site.xml:/etc/hadoop/mapred-site.xml
+      - ./services/hadoop/conf/yarn-site.xml:/etc/hadoop/yarn-site.xml
+      - ./services/hadoop/conf/capacity-scheduler.xml:/etc/hadoop/capacity-scheduler.xml
+    networks:
+      - datn_2025_network
 
+  # spark
+  spark-history-server:
+    image: apache/spark:3.3.3-python3
+    container_name: spark-history-server
+    command: >
+      /opt/spark/bin/spark-class org.apache.spark.deploy.history.HistoryServer
+      --conf spark.hadoop.yarn.resourcemanager.hostname=resourcemanager
+    environment:
+      - SPARK_HISTORY_OPTS=-Dspark.history.fs.logDirectory=hdfs://namenode:8020/spark-logs
+      - SPARK_MASTER=yarn
+      - SPARK_YARN_MODE=true
+      - SPARK_YARN_JAR=hdfs://namenode:8020/spark/jars
+    volumes:
+      - ./services/spark/conf/spark-defaults.conf:/opt/spark/conf/spark-defaults.conf
+      - ./services/spark/conf/metrics.properties:/opt/spark/conf/metrics.properties
+      - ./services/hive/conf/hive-site.xml:/opt/spark/conf/hive-site.xml
+      - ./services/hadoop/conf/core-site.xml:/opt/spark/conf/core-site.xml
+      - ./services/hadoop/conf/hdfs-site.xml:/opt/spark/conf/hdfs-site.xml
+      - ./services/hadoop/conf/capacity-scheduler.xml:/etc/hadoop/capacity-scheduler.xml
+      - ./services/spark/jars/mysql-connector-java-8.0.21.jar:/opt/spark/jars/mysql-connector-java-8.0.21.jar
+      - ./services/spark/jars/iceberg-spark-runtime-3.3_2.12-1.3.0.jar:/opt/spark/jars/iceberg-spark-runtime-3.3_2.12-1.3.0.jar
+    ports:
+      - "18080:18080"
+    networks:
+      - datn_2025_network
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "localhost", "18080" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  spark-thrift-server:
+    # image: apache/spark:3.3.3-python3
+    image: spark-custom:latest
+    container_name: spark-thrift-server
+    command: >
+      /opt/spark/bin/spark-submit
+      --class org.apache.spark.sql.hive.thriftserver.HiveThriftServer2
+      --master yarn
+      --deploy-mode client
+      --proxy-user spark_user
+      --conf spark.hadoop.yarn.resourcemanager.hostname=resourcemanager
+    # user: "spark_thrift_user"
+    environment:
+      - SPARK_MASTER=yarn
+      - SPARK_YARN_MODE=true
+      - SPARK_YARN_JAR=hdfs://namenode:8020/spark/jars
+      - HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop
+      - YARN_CONF_DIR=/opt/hadoop/etc/hadoop
+      - HADOOP_USER_NAME=spark_user
+      - SPARK_USER=spark_user
+    volumes:
+      - ./services/spark/conf/spark-defaults.conf:/opt/spark/conf/spark-defaults.conf
+      - ./services/spark/conf/metrics.properties:/opt/spark/conf/metrics.properties
+      - ./services/hive/conf/hive-site.xml:/opt/spark/conf/hive-site.xml
+      - ./services/hadoop/conf/core-site.xml:/opt/hadoop/etc/hadoop/conf/core-site.xml
+      - ./services/hadoop/conf/hdfs-site.xml:/opt/hadoop/etc/hadoop/conf/hdfs-site.xml
+      - ./services/hadoop/conf/capacity-scheduler.xml:/etc/hadoop/capacity-scheduler.xml
+      - ./services/hadoop/conf/yarn-site.xml:/opt/hadoop/etc/hadoop/conf/yarn-site.xml
+      - ./services/spark/jars/mysql-connector-java-8.0.21.jar:/opt/spark/jars/mysql-connector-java-8.0.21.jar
+      - ./services/spark/jars/iceberg-spark-runtime-3.3_2.12-1.3.0.jar:/opt/spark/jars/iceberg-spark-runtime-3.3_2.12-1.3.0.jar
+    ports:
+      - "10000:10000"
+      - "4040:4040"
+    networks:
+      - datn_2025_network
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "localhost", "10000" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  spark-client:
+    # image: apache/spark:3.3.3-python3
+    image: spark-custom:latest
+    container_name: spark-client
+    hostname: spark-client
+    command: tail -f /dev/null  # <-- Keeps it running
+    tty: true
+    stdin_open: true
+    environment:
+      - SPARK_MASTER=yarn
+      - SPARK_YARN_MODE=true
+      - SPARK_YARN_JAR=hdfs://namenode:8020/spark/jars
+      - HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop
+      - YARN_CONF_DIR=/opt/hadoop/etc/hadoop
+    volumes:
+      - ./services/spark/conf/spark-defaults.conf:/opt/spark/conf/spark-defaults.conf
+      - ./services/spark/conf/metrics.properties:/opt/spark/conf/metrics.properties
+      - ./services/hive/conf/hive-site.xml:/opt/spark/conf/hive-site.xml
+      - ./services/hadoop/conf/core-site.xml:/opt/hadoop/etc/hadoop/conf/core-site.xml
+      - ./services/hadoop/conf/hdfs-site.xml:/opt/hadoop/etc/hadoop/conf/hdfs-site.xml
+      - ./services/hadoop/conf/yarn-site.xml:/opt/hadoop/etc/hadoop/conf/yarn-site.xml
+      - ./services/hadoop/conf/capacity-scheduler.xml:/etc/hadoop/capacity-scheduler.xml
+      - ./services/spark/jars/mysql-connector-java-8.0.21.jar:/opt/spark/jars/mysql-connector-java-8.0.21.jar
+      - ./services/spark/jars/iceberg-spark-runtime-3.3_2.12-1.3.0.jar:/opt/spark/jars/iceberg-spark-runtime-3.3_2.12-1.3.0.jar
+    networks:
+      - datn_2025_network
+
+  # hive-metastore
+  hive-metastore:
+    image: apache/hive:3.1.3
+    container_name: hive-metastore
+    environment:
+      - HIVE_CONF_DIR=/opt/hive/conf
+      - HIVE_AUX_JARS_PATH=/opt/hive/lib
+      - HIVE_METASTORE_PORT=9083
+      - HIVE_METASTORE_HOST=hive-metastore
+      - DB_TYPE=mysql
+    volumes:
+      - ./services/hive/conf/hive-site.xml:/opt/hive/conf/hive-site.xml
+      - ./services/hive/jars/mysql-connector-java-8.0.21.jar:/opt/hive/lib/mysql-connector-java-8.0.21.jar
+    entrypoint: ["/bin/bash", "-c", "
+      if ! mysql -h hive-metastore-mysql -u root -proot -e 'use hive_metastore; SELECT * FROM CTLGS LIMIT 1;' &> /dev/null; then
+        echo 'Initializing schema...';
+        /opt/hive/bin/schematool -dbType mysql -initSchema;
+      else
+        echo 'Schema already exists. Skipping initialization.';
+      fi;
+      /opt/hive/bin/hive --service metastore
+    "]
+    ports:
+      - "9083:9083"
+    networks:
+      - datn_2025_network
+    depends_on:
+      mysql:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9083"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      
+
+  # mysql
   mysql:
+    image: mysql:5.7
+    container_name: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=hive_metastore
+      - MYSQL_USER=hive
+      - MYSQL_PASSWORD=hive
+    ports:
+      - "3306:3306"
+    networks:
+      - datn_2025_network
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "--password=root"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
-  # superset for query and create dashboard
+  # superset
   superset:
+    image: superset_custom:latest
+    container_name: superset
+    hostname: superset
+    # environment:
+    volumes:
+      - ./services/superset/conf/superset_config.py:/app/pythonpath/superset_config.py
+    ports:
+      - "8099:8088"
+    networks:
+      - datn_2025_network
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8088/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
-  # airflow + postgres + redis
+  # prometheus
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./services/prometheus/conf/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+    networks:
+      - datn_2025_network
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9090" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  
+  # grafana
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    ports:
+      - "3000:3000"
+    networks:
+      - datn_2025_network
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:3000/api/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # this is for airflow cluster
+  postgres:
+    image: postgres:13
+    hostname: postgres
+    container_name: postgres
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    volumes:
+      - ./services/postgres/data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "airflow" ]
+      interval: 10s
+      retries: 5
+      start_period: 5s
+    #    restart: always
+    networks:
+      - datn_2025_network
+
+
+  airflow-webserver:
+    <<: *airflow-common
+    command: webserver
+    container_name: airflow-webserver
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: [ "CMD", "curl", "--fail", "http://localhost:8080/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    #    restart: always
+    depends_on:
+      <<: *airflow-common-depends-on
+      airflow-init:
+        condition: service_completed_successfully
+    networks:
+      - datn_2025_network
+
+  airflow-scheduler:
+    <<: *airflow-common
+    command: scheduler
+    container_name: airflow-scheduler
+    healthcheck:
+      test: [ "CMD", "curl", "--fail", "http://localhost:8974/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    #    restart: always
+    depends_on:
+      <<: *airflow-common-depends-on
+      airflow-init:
+        condition: service_completed_successfully
+    networks:
+      - datn_2025_network
+
+  airflow-init:
+    <<: *airflow-common
+    container_name: airflow-init
+    entrypoint: /bin/bash
+    command:
+      - -c
+      - |
+        function ver() {
+          printf "%04d%04d%04d%04d" $${1//./ }
+        }
+        airflow_version=$$(AIRFLOW__LOGGING__LOGGING_LEVEL=INFO && gosu airflow airflow version)
+        airflow_version_comparable=$$(ver $${airflow_version})
+        min_airflow_version=2.2.0
+        min_airflow_version_comparable=$$(ver $${min_airflow_version})
+        if (( airflow_version_comparable < min_airflow_version_comparable )); then
+          echo
+          echo -e "\033[1;31mERROR!!!: Too old Airflow version $${airflow_version}!\e[0m"
+          echo "The minimum Airflow version supported: $${min_airflow_version}. Only use this or higher!"
+          echo
+          exit 1
+        fi
+        one_meg=1048576
+        mem_available=$$(($$(getconf _PHYS_PAGES) * $$(getconf PAGE_SIZE) / one_meg))
+        cpus_available=$$(grep -cE 'cpu[0-9]+' /proc/stat)
+        disk_available=$$(df / | tail -1 | awk '{print $$4}')
+        warning_resources="false"
+        if (( mem_available < 4000 )) ; then
+          echo
+          echo -e "\033[1;33mWARNING!!! Not enough memory available for Docker.\e[0m"
+          echo "At least 4GB of memory required. You have $$(numfmt --to iec $$((mem_available * one_meg)))"
+          echo
+          warning_resources="true"
+        fi
+        if (( cpus_available < 2 )); then
+          echo
+          echo -e "\033[1;33mWARNING!!! Not enough CPUS available for Docker.\e[0m"
+          echo "At least 2 CPUs recommended. You have $${cpus_available}"
+          echo
+          warning_resources="true"
+        fi
+        if (( disk_available < one_meg * 10 )); then
+          echo
+          echo -e "\033[1;33mWARNING!!! Not enough Disk space available for Docker.\e[0m"
+          echo "At least 10 GBs recommended. You have $$(numfmt --to iec $$((disk_available * 1024 )))"
+          echo
+          warning_resources="true"
+        fi
+        if [[ $${warning_resources} == "true" ]]; then
+          echo
+          echo -e "\033[1;33mWARNING!!! You have not enough resources to run Airflow (see above)!\e[0m"
+          echo "Please follow the instructions to increase amount of resources available:"
+          echo "   https://airflow.apache.org/docs/apache-airflow/stable/howto/docker-compose/index.html#before-you-begin"
+          echo
+        fi
+        mkdir -p /sources/logs /sources/dags /sources/plugins
+        chown -R "0" /sources/{logs,dags,plugins}
+        exec /entrypoint airflow version
+    # yamllint enable rule:line-length
+    environment:
+      <<: *airflow-common-env
+      _AIRFLOW_DB_UPGRADE: 'true'
+      _AIRFLOW_WWW_USER_CREATE: 'true'
+      _AIRFLOW_WWW_USER_USERNAME: airflow
+      _AIRFLOW_WWW_USER_PASSWORD: airflow
+      _PIP_ADDITIONAL_REQUIREMENTS: ''
+    user: "0:0"
+    volumes:
+      - ./services/airflow:/sources
+    networks:
+      - datn_2025_network
+
+
+networks:
+  datn_2025_network:
+    driver: bridge
+  
+# volumes:
+#   namenode_data:
+#     driver: local
+#   datanode_data:
+#     driver: local

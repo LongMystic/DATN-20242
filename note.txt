@@ -1,0 +1,39 @@
+- at start hadoop:
+    run some cmd:
+        $ $HADOOP_HOME/bin/hadoop fs -mkdir       /tmp
+        $ $HADOOP_HOME/bin/hadoop fs -mkdir       /user/hive/warehouse
+        $ $HADOOP_HOME/bin/hadoop fs -chmod g+w   /tmp
+        $ $HADOOP_HOME/bin/hadoop fs -chmod g+w   /user/hive/warehouse
+
+beeline -u "jdbc:hive2://spark-thrift-server:10000" -n spark_user
+
+CREATE TABLE iceberg.default.long_test (
+  id INT,
+  name STRING
+)
+using iceberg
+location 'hdfs://namenode:8020/long_test'
+
+Apache Spark SQL	pip install pyhive	hive://hive@{hostname}:{port}/{database}
+
+ALTER DATABASE test CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+use test;
+ALTER TABLE category CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+=== START HADOOP CLUSTER ===
+docker compose up namenode datanode1 datanode2 resourcemanager nodemanager1 nodemanager2 -d
+
+=== START AIRFLOW CLUSTER ===
+docker compose up postgres redis airflow-webserver airflow-scheduler airflow-worker airflow-triggerer airflow-init -d
+
+docker exec -it namenode sh
+hdfs dfs -setfacl -m user:spark_user:rwx /
+hdfs dfs -mkdir /spark-events
+hdfs dfs -chmod 777 /spark-events
+hdfs dfs -mkdir /spark-logs
+hdfs dfs -chmod 777 /spark-logs
+
+hdfs dfs -mkdir       /tmp
+hdfs dfs -mkdir -p /user/hive/warehouse
+hdfs dfs -chmod g+w   /tmp
+hdfs dfs -chmod g+w /user/hive/warehouse
