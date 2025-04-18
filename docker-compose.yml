@@ -1,6 +1,7 @@
 x-airflow-common:
   &airflow-common
-  image: apache/airflow:2.6.1
+  image: airflow-custom:v1.1
+  # image: apache/airflow:2.6.1
   # build: .
   environment:
     &airflow-common-env
@@ -107,6 +108,13 @@ services:
     container_name: nodemanager1
     environment:
       - HADOOP_CONF_DIR=/etc/hadoop
+    ports:
+      - "8043:8042"
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 2G
     volumes:
       - ./services/hadoop/conf/core-site.xml:/etc/hadoop/core-site.xml
       - ./services/hadoop/conf/hdfs-site.xml:/etc/hadoop/hdfs-site.xml
@@ -121,6 +129,13 @@ services:
     container_name: nodemanager2
     environment:
       - HADOOP_CONF_DIR=/etc/hadoop
+    ports:
+      - "8044:8042"
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 2G
     volumes:
       - ./services/hadoop/conf/core-site.xml:/etc/hadoop/core-site.xml
       - ./services/hadoop/conf/hdfs-site.xml:/etc/hadoop/hdfs-site.xml
@@ -293,6 +308,7 @@ services:
     # environment:
     volumes:
       - ./services/superset/conf/superset_config.py:/app/pythonpath/superset_config.py
+      - ./services/superset/sqlalchemy_hive.py:/usr/local/lib/python3.10/site-packages/pyhive/sqlalchemy_hive.py
     ports:
       - "8099:8088"
     networks:

@@ -172,3 +172,5 @@ cython_debug/
 
 /services/airflow/logs/
 /services/postgres/data/
+/services/airflow/dags/__pycache__/
+/services/airflow/dags/*.pyc

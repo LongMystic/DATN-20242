@@ -37,3 +37,11 @@ hdfs dfs -mkdir       /tmp
 hdfs dfs -mkdir -p /user/hive/warehouse
 hdfs dfs -chmod g+w   /tmp
 hdfs dfs -chmod g+w /user/hive/warehouse
+
+airflow connections add 'spark_conn_id' \
+    --conn-type 'spark-thrift-connection' \
+    --conn-host 'spark-thrift-server' \
+    --conn-port '10000' \
+    --conn-schema 'default' \
+    --conn-login 'spark_user' \
+    --conn-extra '{"auth": "NOSASL"}'
