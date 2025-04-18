@@ -1,0 +1,674 @@
+"category_id","category_name","level","parent_category","parent_id","industry_id","is_selected"
+921000,"Nước hoa, Body mist",1,"",0,2,1
+921001,"Nước hoa, body mist nam",2,"Nước hoa, Body mist",921000,2,1
+922001,"Nước hoa, body mist nữ",2,"Nước hoa, Body mist",921000,2,1
+923001,"Nước hoa, body mist khác",2,"Nước hoa, Body mist",921000,2,1
+941000,Trang điểm mặt,1,"",0,2,1
+941001,Kem lót,2,Trang điểm mặt,941000,2,1
+942001,Kem nền - BB/cc cream,2,Trang điểm mặt,941000,2,1
+943001,Phấn nước - Cushion,2,Trang điểm mặt,941000,2,1
+944001,Phấn nén/phủ,2,Trang điểm mặt,941000,2,1
+945001,Che khuyết điểm,2,Trang điểm mặt,941000,2,1
+946001,Phấn má,2,Trang điểm mặt,941000,2,1
+947001,Tạo khối- Hightlight,2,Trang điểm mặt,941000,2,1
+948001,Xịt khóa makeup,2,Trang điểm mặt,941000,2,1
+961000,Trang điểm mắt,1,"",0,2,1
+961001,Phấn mắt/ nhũ mắt,2,Trang điểm mắt,961000,2,1
+962001,Kẻ mắt,2,Trang điểm mắt,961000,2,1
+963001,Kẻ chân mày,2,Trang điểm mắt,961000,2,1
+964001,Mascara/ chuốt mi,2,Trang điểm mắt,961000,2,1
+965001,Kem lót mắt,2,Trang điểm mắt,961000,2,1
+966001,Kẹp mi,2,Trang điểm mắt,961000,2,1
+967001,Mi giả,2,Trang điểm mắt,961000,2,1
+981000,Trang điểm môi,1,"",0,2,1
+981001,Son môi,2,Trang điểm môi,981000,2,1
+981002,Son bóng,3,Son môi,981001,2,1
+981035,Son bút chì,3,Son môi,981001,2,1
+981068,Son dưỡng,3,Son môi,981001,2,1
+981101,Son kem,3,Son môi,981001,2,1
+981134,Kẻ viền môi,3,Son môi,981001,2,1
+981167,Lót môi - Khóa môi,3,Son môi,981001,2,1
+981200,"Son nền, che khuyết điểm môi",3,Son môi,981001,2,1
+981233,Son thỏi,3,Son môi,981001,2,1
+981266,Son tint,3,Son môi,981001,2,1
+982001,Dưỡng môi,2,Trang điểm môi,981000,2,1
+1001000,Chăm sóc da,1,"",0,2,1
+1001001,Làm sạch da,2,Chăm sóc da,1001000,2,1
+1001002,Dầu Tẩy trang,3,Làm sạch da,1001001,2,1
+1001035,Nước Tẩy trang,3,Làm sạch da,1001001,2,1
+1001068,Sáp Tẩy trang,3,Làm sạch da,1001001,2,1
+1001101,Khăn tẩy trang,3,Làm sạch da,1001001,2,1
+1001134,Miếng lột mụn,3,Làm sạch da,1001001,2,1
+1001167,Sữa rửa mặt,3,Làm sạch da,1001001,2,1
+1001200,Nước hoa hồng,3,Làm sạch da,1001001,2,1
+1001233,Tẩy da chết mặt,3,Làm sạch da,1001001,2,1
+1001266,Tẩy da chết môi,3,Làm sạch da,1001001,2,1
+1002001,Dưỡng da,2,Chăm sóc da,1001000,2,1
+1002002,Kem/ gel  dưỡng da,3,Dưỡng da,1002001,2,1
+1002035,Dầu dưỡng da,3,Dưỡng da,1002001,2,1
+1002068,Serum- tinh chất dưỡng da,3,Dưỡng da,1002001,2,1
+1002101,Mặt nạ,3,Dưỡng da,1002001,2,1
+1002167,Xịt khoáng,3,Dưỡng da,1002001,2,1
+1002200,Lotion/sữa dưỡng,3,Dưỡng da,1002001,2,1
+1003001,Chăm sóc mắt,2,Chăm sóc da,1001000,2,1
+1003002,Dưỡng mi/dưỡng mày,3,Chăm sóc mắt,1003001,2,1
+1003035,Kem mắt,3,Chăm sóc mắt,1003001,2,1
+1003068,Mặt na mắt,3,Chăm sóc mắt,1003001,2,1
+1004001,Sản phẩm đặc trị,2,Chăm sóc da,1001000,2,1
+1004002,Xịt chống nắng,3,Sản phẩm đặc trị,1004001,2,1
+1004035,Kem chống nắng,3,Sản phẩm đặc trị,1004001,2,1
+1004068,Sản phẩm trị mụn,3,Sản phẩm đặc trị,1004001,2,1
+1004101,Trị thâm - trị sẹo,3,Sản phẩm đặc trị,1004001,2,1
+1004134,Trị nám - tàn nhang,3,Sản phẩm đặc trị,1004001,2,1
+1021000,Chăm sóc cơ thể,1,"",0,2,1
+1021001,Bath & body,2,Chăm sóc cơ thể,1021000,2,1
+1021002,Sữa tắm,3,Bath & body,1021001,2,1
+1021035,Kem dưỡng thể,3,Bath & body,1021001,2,1
+1021068,Tẩy tế bào chết,3,Bath & body,1021001,2,1
+1021101,Kem dưỡng tay,3,Bath & body,1021001,2,1
+1021134,Kem dưỡng da cổ,3,Bath & body,1021001,2,1
+1021167,Kem dưỡng da dưới cánh tay,3,Bath & body,1021001,2,1
+1021200,Xà phòng đặc trị,3,Bath & body,1021001,2,1
+1022001,Chăm sóc tóc,2,Chăm sóc cơ thể,1021000,2,1
+1022002,Dầu gội/dầu xả,3,Chăm sóc tóc,1022001,2,1
+1022035,Dầu dưỡng tóc,3,Chăm sóc tóc,1022001,2,1
+1022068,Kem ủ tóc,3,Chăm sóc tóc,1022001,2,1
+1022101,Dầu gội khô,3,Chăm sóc tóc,1022001,2,1
+1022134,Chăm sóc tóc khác,3,Chăm sóc tóc,1022001,2,1
+1022167,"Gôm, sáp tóc",3,Chăm sóc tóc,1022001,2,1
+1022200,Thuốc nhuộm tóc,3,Chăm sóc tóc,1022001,2,1
+1023001,Sản phẩm đặc trị,2,Chăm sóc cơ thể,1021000,2,1
+1023002,Kem tẩy lông,3,Sản phẩm đặc trị,1023001,2,1
+1023035,Kem trị rạn da,3,Sản phẩm đặc trị,1023001,2,1
+1023068,Kem tan mỡ,3,Sản phẩm đặc trị,1023001,2,1
+1023134,Lăn khử mùi,3,Sản phẩm đặc trị,1023001,2,1
+1023167,Sản phẩm nha khoa,3,Sản phẩm đặc trị,1023001,2,1
+1024001,Chăm sóc răng miệng,2,Chăm sóc cơ thể,1021000,2,1
+1024002,Kem đánh răng,3,Chăm sóc răng miệng,1024001,2,1
+1024035,Nước súc miệng,3,Chăm sóc răng miệng,1024001,2,1
+1024068,Bàn chải đánh răng,3,Chăm sóc răng miệng,1024001,2,1
+1024101,Bàn chải điện,3,Chăm sóc răng miệng,1024001,2,1
+1024134,Chỉ nha khoa,3,Chăm sóc răng miệng,1024001,2,1
+1024167,Máy tăm nước,3,Chăm sóc răng miệng,1024001,2,1
+1024200,Bàn chải kẽ,3,Chăm sóc răng miệng,1024001,2,1
+1025001,Chăm sóc vùng kín,2,Chăm sóc cơ thể,1021000,2,1
+1041000,Dụng cụ,1,"",0,2,1
+1041001,Dụng cụ makeup,2,Dụng cụ,1041000,2,1
+1041002,Mút trang điểm,3,Dụng cụ makeup,1041001,2,1
+1041035,Cọ trang điểm,3,Dụng cụ makeup,1041001,2,1
+1041068,Kích mí,3,Dụng cụ makeup,1041001,2,1
+1041101,Dao cạo,3,Dụng cụ makeup,1041001,2,1
+1041134,Bông tẩy trang,3,Dụng cụ makeup,1041001,2,1
+1041167,Dụng cụ rửa cọ,3,Dụng cụ makeup,1041001,2,1
+1041200,Nước rửa cọ,3,Dụng cụ makeup,1041001,2,1
+1041233,Giấy thấm dầu,3,Dụng cụ makeup,1041001,2,1
+1042001,Dụng cụ chăm sóc da,2,Dụng cụ,1041000,2,1
+1042002,Miếng rửa mặt,3,Dụng cụ chăm sóc da,1042001,2,1
+1042035,Máy rửa mặt,3,Dụng cụ chăm sóc da,1042001,2,1
+1042068,Khăn ướt tẩy trang,3,Dụng cụ chăm sóc da,1042001,2,1
+1042101,Máy kiểm tra da,3,Dụng cụ chăm sóc da,1042001,2,1
+1042134,Cây nặn mụn,3,Dụng cụ chăm sóc da,1042001,2,1
+1042167,Máy đẩy tinh chất,3,Dụng cụ chăm sóc da,1042001,2,1
+1042200,Máy hút mụn,3,Dụng cụ chăm sóc da,1042001,2,1
+1042233,Máy xông hơi,3,Dụng cụ chăm sóc da,1042001,2,1
+1043001,Dụng cụ chăm sóc cơ thể,2,Dụng cụ,1041000,2,1
+1043002,Kéo,3,Dụng cụ chăm sóc cơ thể,1043001,2,1
+1043035,Nhíp,3,Dụng cụ chăm sóc cơ thể,1043001,2,1
+1043068,Bấm móng,3,Dụng cụ chăm sóc cơ thể,1043001,2,1
+1043101,Dạo cao,3,Dụng cụ chăm sóc cơ thể,1043001,2,1
+1043134,Máy triệt lông,3,Dụng cụ chăm sóc cơ thể,1043001,2,1
+1043167,Dụng cụ chà gót chân,3,Dụng cụ chăm sóc cơ thể,1043001,2,1
+1081000,Thực phẩm chức năng hỗ trợ làm đẹp,1,"",0,2,1
+1081001,Hỗ trợ làm đẹp da,2,Thực phẩm chức năng hỗ trợ làm đẹp,1081000,2,1
+1082001,Hỗ trợ tóc - móng,2,Thực phẩm chức năng hỗ trợ làm đẹp,1081000,2,1
+1083001,Hỗ trợ chống lão hóa,2,Thực phẩm chức năng hỗ trợ làm đẹp,1081000,2,1
+1084001,Hỗ trợ giảm cân,2,Thực phẩm chức năng hỗ trợ làm đẹp,1081000,2,1
+2961000,các loại khác,1,"",0,0,1
+2961001,các loại khác,2,các loại khác,2961000,0,1
+2967001,các loại mỹ phẩm khác,2,các loại khác,2961000,0,1
+1000,Chăm sóc cá nhân,1,"",0,9,1
+1001,Chăm sóc cơ thể,2,Chăm sóc cá nhân,1000,9,1
+1002,Dưỡng thể,3,Chăm sóc cơ thể,1001,9,0
+1035,"Trị sẹo, trị rạn nứt da",3,Chăm sóc cơ thể,1001,9,0
+1068,"Sản phẩm khử mùi, nước hoa",3,Chăm sóc cơ thể,1001,9,1
+1101,"Sữa tắm, muối tắm, tinh dầu",3,Chăm sóc cơ thể,1001,9,0
+1134,"Xà bông, bông tắm",3,Chăm sóc cơ thể,1001,9,0
+1167,Kem tẩy lông,3,Chăm sóc cơ thể,1001,9,0
+1200,"Băng vệ sinh, dung dịch vệ sinh",3,Chăm sóc cơ thể,1001,9,0
+1233,"Tã, bỉm",3,Chăm sóc cơ thể,1001,9,0
+1266,"Dao cạo, bọt cạo râu, tăm bông",3,Chăm sóc cơ thể,1001,9,0
+1667,Chăm sóc răng miệng,2,Chăm sóc cá nhân,1000,9,1
+1668,Bàn chải đánh răng,3,Chăm sóc răng miệng,1667,9,0
+1701,Kem đánh răng,3,Chăm sóc răng miệng,1667,9,1
+1734,Nước súc miệng,3,Chăm sóc răng miệng,1667,9,0
+1767,"Chỉ, tăm nha khoa",3,Chăm sóc răng miệng,1667,9,0
+2333,Chăm sóc tóc và da đầu,2,Chăm sóc cá nhân,1000,9,1
+2334,Dầu gội,3,Chăm sóc tóc và da đầu,2333,9,1
+2367,Dầu xả,3,Chăm sóc tóc và da đầu,2333,9,1
+2400,"Các loại dưỡng tóc, ủ tóc",3,Chăm sóc tóc và da đầu,2333,9,0
+2433,Thuốc nhuộm tóc,3,Chăm sóc tóc và da đầu,2333,9,0
+2466,"Xịt dưỡng, keo vuốt tóc",3,Chăm sóc tóc và da đầu,2333,9,0
+2999,Chăm sóc da mặt,2,Chăm sóc cá nhân,1000,9,1
+3000,"Kem, gel, sữa chống nắng",3,Chăm sóc da mặt,2999,9,0
+3033,"Kem, gel, sữa rửa mặt",3,Chăm sóc da mặt,2999,9,0
+3066,Mặt nạ,3,Chăm sóc da mặt,2999,9,0
+3099,"Tẩy trang, toner",3,Chăm sóc da mặt,2999,9,1
+3132,Sản phẩm trị mụn,3,Chăm sóc da mặt,2999,9,0
+3165,"Serum, dưỡng da, xịt khoáng",3,Chăm sóc da mặt,2999,9,0
+3665,Chăm sóc sức khỏe,2,Chăm sóc cá nhân,1000,9,1
+3666,Dung dịch rửa tay,3,Chăm sóc sức khỏe,3665,9,0
+3699,Khẩu trang,3,Chăm sóc sức khỏe,3665,9,1
+3732,"Bao cao su, gel bôi trơn",3,Chăm sóc sức khỏe,3665,9,0
+3765,Bông tẩy trang,3,Chăm sóc sức khỏe,3665,9,0
+3798,"Kem, xịt côn trùng",3,Chăm sóc sức khỏe,3665,9,0
+4331,Mỹ phẩm và dụng cụ làm đẹp,2,Chăm sóc cá nhân,1000,9,1
+4332,Trang điểm mặt,3,Mỹ phẩm và dụng cụ làm đẹp,4331,9,0
+4365,Son và trang điểm môi,3,Mỹ phẩm và dụng cụ làm đẹp,4331,9,1
+4398,Trang điểm mắt,3,Mỹ phẩm và dụng cụ làm đẹp,4331,9,0
+4431,Dụng cụ trang điểm,3,Mỹ phẩm và dụng cụ làm đẹp,4331,9,0
+4464,Chăm sóc móng,3,Mỹ phẩm và dụng cụ làm đẹp,4331,9,0
+4497,Máy và dụng cụ rửa mặt,3,Mỹ phẩm và dụng cụ làm đẹp,4331,9,0
+4997,Chăm sóc cá nhân khác,2,Chăm sóc cá nhân,1000,9,1
+21000,Chăm sóc thú cưng,1,"",0,9,1
+21001,Thức ăn thú cưng,2,Chăm sóc thú cưng,21000,9,1
+21667,Phụ kiện thú cưng,2,Chăm sóc thú cưng,21000,9,1
+22333,Vệ sinh thú cưng,2,Chăm sóc thú cưng,21000,9,1
+22334,"Nhà vệ sinh, cát vệ sinh",3,Vệ sinh thú cưng,22333,9,1
+22367,"Vệ sinh, tắm gội",3,Vệ sinh thú cưng,22333,9,0
+22999,Sản phẩm thú cưng khác,2,Chăm sóc thú cưng,21000,9,0
+41000,Đồ uống,1,"",0,9,1
+41001,Bia,2,Đồ uống,41000,9,1
+41002,Bia thủ công,3,Bia,41001,9,0
+41035,Bia nội địa,3,Bia,41001,9,1
+41068,Bia nhập khẩu,3,Bia,41001,9,0
+41101,Nước hoa quả lên men,3,Bia,41001,9,0
+41667,Rượu,2,Đồ uống,41000,9,1
+41668,Rượu vang,3,Rượu,41667,9,1
+41701,Rượu mạnh,3,Rượu,41667,9,0
+41734,"Rượu đế, rượu gạo",3,Rượu,41667,9,0
+41767,Rượu soju - sake,3,Rượu,41667,9,0
+41800,"Rượu pha chế, rượu ngâm",3,Rượu,41667,9,0
+41833,Các loại rượu khác,3,Rượu,41667,9,0
+42333,Trà sữa,2,Đồ uống,41000,9,0
+42999,"Bột cacao, matcha",2,Đồ uống,41000,9,0
+43665,"Yến mạch, ngũ cốc dinh dưỡng",2,Đồ uống,41000,9,0
+44331,Bột thay thế bữa ăn,2,Đồ uống,41000,9,0
+44997,Cà phê,2,Đồ uống,41000,9,1
+44998,Cà phê hòa tan,3,Cà phê,44997,9,1
+45031,Cà phê pha phin,3,Cà phê,44997,9,0
+45064,"Cà phê lon, cà phê uống liền",3,Cà phê,44997,9,0
+45663,Trà,2,Đồ uống,41000,9,1
+45664,"Trà đóng chai, trà uống liền",3,Trà,45663,9,1
+45697,"Trà khô, túi lọc",3,Trà,45663,9,0
+46329,Nước ngọt,2,Đồ uống,41000,9,1
+47661,"Nước suối, nước tinh khiết",2,Đồ uống,41000,9,1
+48327,"Nước tăng lực, bù khoáng",2,Đồ uống,41000,9,1
+48993,Nước trái cây,2,Đồ uống,41000,9,1
+49659,Siro,2,Đồ uống,41000,9,1
+50325,Thức uống dinh dưỡng,2,Đồ uống,41000,9,1
+50326,Mật ong,3,Thức uống dinh dưỡng,50325,9,1
+50359,"Bột nghệ, viên nghệ",3,Thức uống dinh dưỡng,50325,9,0
+50392,Nước yến,3,Thức uống dinh dưỡng,50325,9,0
+50425,Thực phẩm bổ dưỡng khác,3,Thức uống dinh dưỡng,50325,9,0
+50991,Đồ uống khác,2,Đồ uống,41000,9,1
+61000,"Dầu ăn, nước chấm, gia vị",1,"",0,9,1
+61001,Dầu ăn,2,"Dầu ăn, nước chấm, gia vị",61000,9,1
+61002,"Dầu nành, dầu mè, dầu phộng",3,Dầu ăn,61001,9,0
+61035,Dầu olive,3,Dầu ăn,61001,9,0
+61068,Dầu thực vật,3,Dầu ăn,61001,9,1
+61101,Dầu động vật,3,Dầu ăn,61001,9,0
+61667,Gia vị,2,"Dầu ăn, nước chấm, gia vị",61000,9,1
+61668,"Hạt nêm, bột ngọt, bột canh",3,Gia vị,61667,9,1
+61701,"Muối, đường",3,Gia vị,61667,9,1
+61734,"Tương ớt, tương cà, tương đen",3,Gia vị,61667,9,0
+61767,"Dầu hào, giấm, bơ",3,Gia vị,61667,9,0
+61800,"Tiêu, sate, ớt bột,...",3,Gia vị,61667,9,0
+61833,"Tỏi, hồi, quế,...",3,Gia vị,61667,9,0
+61866,"Sốt, gia vị các loại",3,Gia vị,61667,9,0
+62333,"Nước chấm, mắm",2,"Dầu ăn, nước chấm, gia vị",61000,9,1
+62334,Mắm các loại,3,"Nước chấm, mắm",62333,9,1
+62367,Nước mắm,3,"Nước chấm, mắm",62333,9,0
+62400,"Nước tương, nước chấm",3,"Nước chấm, mắm",62333,9,0
+101000,"Sữa, sản phẩm từ sữa",1,"",0,9,1
+101001,Sữa đặc,2,"Sữa, sản phẩm từ sữa",101000,9,0
+101667,Sữa bột,2,"Sữa, sản phẩm từ sữa",101000,9,1
+102333,Sữa nước các loại,2,"Sữa, sản phẩm từ sữa",101000,9,1
+102334,"Sữa cacao, lúa mạch",3,Sữa nước các loại,102333,9,1
+102367,"Sữa hạt, sữa đậu",3,Sữa nước các loại,102333,9,0
+102400,Sữa trái cây,3,Sữa nước các loại,102333,9,0
+102433,Sữa tươi,3,Sữa nước các loại,102333,9,0
+102466,Sữa tiệt trùng,3,Sữa nước các loại,102333,9,0
+102999,Sữa chua,2,"Sữa, sản phẩm từ sữa",101000,9,1
+103000,Sữa chua ăn,3,Sữa chua,102999,9,1
+103033,Sữa chua uống,3,Sữa chua,102999,9,0
+103665,Sản phẩm từ sữa khác,2,"Sữa, sản phẩm từ sữa",101000,9,1
+103666,"Bánh flan, bơ ăn, đạm váng sữa",3,Sản phẩm từ sữa khác,103665,9,1
+103699,Phô mai,3,Sản phẩm từ sữa khác,103665,9,1
+103732,Bột kem,3,Sản phẩm từ sữa khác,103665,9,0
+103765,Ngũ cốc,3,Sản phẩm từ sữa khác,103665,9,0
+121000,"Bánh, kẹo, snack",1,"",0,9,1
+121001,Bánh,2,"Bánh, kẹo, snack",121000,9,1
+121002,"Bánh bông lan, bánh trứng",3,Bánh,121001,9,1
+121035,"Bánh xốp, bánh gạo, bánh quế, cracker",3,Bánh,121001,9,0
+121068,"Bánh quy, bánh ngũ cốc",3,Bánh,121001,9,0
+121101,"Bánh tươi, sandwich",3,Bánh,121001,9,0
+121667,Kẹo,2,"Bánh, kẹo, snack",121000,9,1
+121668,Kẹo cứng,3,Kẹo,121667,9,0
+121701,"Kẹo dẻo, kẹo marshmallow",3,Kẹo,121667,9,1
+121734,Kẹo singum,3,Kẹo,121667,9,0
+121767,Socola,3,Kẹo,121667,9,0
+122333,"Snack, đồ ăn vặt",2,"Bánh, kẹo, snack",121000,9,1
+122334,Khoai tây chiên,3,"Snack, đồ ăn vặt",122333,9,0
+122367,Snack các loại,3,"Snack, đồ ăn vặt",122333,9,1
+122400,"Bánh que, bánh gấu",3,"Snack, đồ ăn vặt",122333,9,0
+122433,"Cơm cháy, bánh tráng",3,"Snack, đồ ăn vặt",122333,9,0
+122466,"Khô gà, khô heo, khô bò,...",3,"Snack, đồ ăn vặt",122333,9,0
+122999,"Hạt, trái cây sấy",2,"Bánh, kẹo, snack",121000,9,1
+123000,Hạt khô,3,"Hạt, trái cây sấy",122999,9,1
+123033,"Trái cây, rau củ sấy",3,"Hạt, trái cây sấy",122999,9,0
+123665,"Mứt, thạch, rong biển",2,"Bánh, kẹo, snack",121000,9,1
+123666,Mứt,3,"Mứt, thạch, rong biển",123665,9,1
+123699,"Rau câu, thạch",3,"Mứt, thạch, rong biển",123665,9,0
+123732,"Rong, tảo biển",3,"Mứt, thạch, rong biển",123665,9,0
+124331,"Bánh, kẹo, snack khác",2,"Bánh, kẹo, snack",121000,9,1
+141000,"Thịt, trứng, thủy hải sản tươi",1,"",0,9,1
+141001,Thịt,2,"Thịt, trứng, thủy hải sản tươi",141000,9,1
+141002,Thịt bò,3,Thịt,141001,9,1
+141035,Thịt heo,3,Thịt,141001,9,0
+141068,Thịt gia cầm,3,Thịt,141001,9,0
+141101,Các loại thịt khác,3,Thịt,141001,9,0
+141667,Thủy hải sản,2,"Thịt, trứng, thủy hải sản tươi",141000,9,1
+141668,Cá biển,3,Thủy hải sản,141667,9,0
+141701,Cá nước ngọt,3,Thủy hải sản,141667,9,0
+141734,Hải sản,3,Thủy hải sản,141667,9,1
+142333,Trứng,2,"Thịt, trứng, thủy hải sản tươi",141000,9,1
+142334,Trứng cút,3,Trứng,142333,9,0
+142367,Trứng gà,3,Trứng,142333,9,0
+142400,Trứng vịt,3,Trứng,142333,9,1
+142433,Trứng tươi khác,3,Trứng,142333,9,0
+161000,"Rau, củ, trái cây",1,"",0,9,1
+161001,"Rau, củ",2,"Rau, củ, trái cây",161000,9,1
+161002,"Nấm tươi, nấm khô",3,"Rau, củ",161001,9,1
+161035,Rau lá,3,"Rau, củ",161001,9,0
+161068,"Củ, quả",3,"Rau, củ",161001,9,0
+161101,"Rau gia vị, rau thơm",3,"Rau, củ",161001,9,0
+161134,"Rau, củ khác",3,"Rau, củ",161001,9,0
+161667,Trái cây,2,"Rau, củ, trái cây",161000,9,1
+162333,"Rau, củ, trái cây khác",2,"Rau, củ, trái cây",161000,9,0
+181000,Thực phẩm đông mát,1,"",0,9,1
+181001,Kem,2,Thực phẩm đông mát,181000,9,1
+181002,"Kem cây, ly",3,Kem,181001,9,1
+181035,Kem hộp,3,Kem,181001,9,0
+181667,Thực phẩm đông lạnh,2,Thực phẩm đông mát,181000,9,1
+181668,"Hoành thánh, bánh xếp, há cảo, sủi cảo",3,Thực phẩm đông lạnh,181667,9,1
+181701,Trái cây và rau củ đông lạnh,3,Thực phẩm đông lạnh,181667,9,0
+181734,"Thịt, thủy hải sản đông lạnh",3,Thực phẩm đông lạnh,181667,9,0
+181767,Thực phẩm đông lạnh khác,3,Thực phẩm đông lạnh,181667,9,0
+182333,Thực phẩm trữ mát,2,Thực phẩm đông mát,181000,9,1
+182334,"Bánh bao, bánh mì, pizza",3,Thực phẩm trữ mát,182333,9,1
+182367,"Cá viên, bò viên, chả cá",3,Thực phẩm trữ mát,182333,9,0
+182400,"Chả, giò, nem các loại",3,Thực phẩm trữ mát,182333,9,0
+182433,"Dăm bông, xúc xích, lạp xưởng, thịt nguội",3,Thực phẩm trữ mát,182333,9,0
+182466,"Đồ chua, kim chi, đậu hũ",3,Thực phẩm trữ mát,182333,9,0
+182499,Thực phẩm trữ mát khác,3,Thực phẩm trữ mát,182333,9,0
+182999,Thực phẩm chế biến sẵn,2,Thực phẩm đông mát,181000,9,1
+183665,"Thực phẩm sơ chế, tẩm ướp",2,Thực phẩm đông mát,181000,9,1
+201000,"Gạo, bột và thực phẩm khô",1,"",0,9,1
+201001,Gạo các loại,2,"Gạo, bột và thực phẩm khô",201000,9,1
+201002,Gạo trắng,3,Gạo các loại,201001,9,1
+201035,Gạo lứt,3,Gạo các loại,201001,9,0
+201068,Gạo nếp,3,Gạo các loại,201001,9,0
+201101,Các loại gạo khác,3,Gạo các loại,201001,9,0
+201667,Đậu các loại,2,"Gạo, bột và thực phẩm khô",201000,9,0
+201668,"Đậu xanh, đậu đỏ",3,Đậu các loại,201667,9,0
+201701,"Đậu trắng, đậu đen",3,Đậu các loại,201667,9,0
+201734,Các loại đậu khác,3,Đậu các loại,201667,9,0
+202333,Bột các loại,2,"Gạo, bột và thực phẩm khô",201000,9,1
+202334,"Bột chiên giòn, bột chiên xù",3,Bột các loại,202333,9,1
+202367,"Bột làm bánh, bột rau câu",3,Bột các loại,202333,9,0
+202400,"Bột mì, bột bắp",3,Bột các loại,202333,9,0
+202433,Các loại bột khác,3,Bột các loại,202333,9,0
+202999,Thực phẩm ăn liền,2,"Gạo, bột và thực phẩm khô",201000,9,1
+203000,Mì ăn liền,3,Thực phẩm ăn liền,202999,9,1
+203033,"Phở, bún, miến ăn liền",3,Thực phẩm ăn liền,202999,9,0
+203066,"Cháo, cơm ăn liền",3,Thực phẩm ăn liền,202999,9,0
+203099,Bánh gạo hàn quốc,3,Thực phẩm ăn liền,202999,9,0
+203665,"Nui, mì, bún khô",2,"Gạo, bột và thực phẩm khô",201000,9,1
+203666,"Nui, miến, bún, phở khô",3,"Nui, mì, bún khô",203665,9,1
+203699,"Mì ý, mì trứng",3,"Nui, mì, bún khô",203665,9,0
+204331,"Rong biển, bánh tráng",2,"Gạo, bột và thực phẩm khô",201000,9,1
+204332,Rong biển,3,"Rong biển, bánh tráng",204331,9,0
+204365,"Bánh tráng, bánh đa",3,"Rong biển, bánh tráng",204331,9,1
+204398,"Phồng tôm, lương khô",3,"Rong biển, bánh tráng",204331,9,0
+204997,Thực phẩm đóng hộp,2,"Gạo, bột và thực phẩm khô",201000,9,1
+204998,Thịt hộp,3,Thực phẩm đóng hộp,204997,9,1
+205031,Thủy sản hộp,3,Thực phẩm đóng hộp,204997,9,0
+205064,Pate hộp,3,Thực phẩm đóng hộp,204997,9,0
+205097,"Rau, củ, trái cây đóng hộp",3,Thực phẩm đóng hộp,204997,9,0
+205663,"Lạp xưởng, xúc xích, khô sấy",2,"Gạo, bột và thực phẩm khô",201000,9,1
+205664,"Khô sấy, chà bông, ruốc",3,"Lạp xưởng, xúc xích, khô sấy",205663,9,0
+205697,"Lạp xưởng, xúc xích ăn liền",3,"Lạp xưởng, xúc xích, khô sấy",205663,9,1
+206329,"Gạo, bột và thực phẩm khô khác",2,"Gạo, bột và thực phẩm khô",201000,9,1
+221000,Chăm sóc nhà cửa,1,"",0,9,1
+221001,Giặt giũ và chăm sóc quần áo,2,Chăm sóc nhà cửa,221000,9,1
+221002,"Bột giặt, nước giặt, viên giặt",3,Giặt giũ và chăm sóc quần áo,221001,9,1
+221035,"Nước xả vải, xịt vải",3,Giặt giũ và chăm sóc quần áo,221001,9,0
+221068,"Dung dịch tẩy, chất tẩy",3,Giặt giũ và chăm sóc quần áo,221001,9,0
+221101,"Nước làm thơm, nước ủi quần áo",3,Giặt giũ và chăm sóc quần áo,221001,9,0
+221667,Vệ sinh nhà cửa,2,Chăm sóc nhà cửa,221000,9,1
+221668,Nước lau sàn,3,Vệ sinh nhà cửa,221667,9,1
+221701,"Nước lau kính, lau bếp",3,Vệ sinh nhà cửa,221667,9,0
+221734,Nước rửa chén,3,Vệ sinh nhà cửa,221667,9,0
+221767,Khử mùi và xịt thơm phòng,3,Vệ sinh nhà cửa,221667,9,0
+221800,"Diệt chuột, côn trùng",3,Vệ sinh nhà cửa,221667,9,0
+221833,Tẩy rửa nhà tắm,3,Vệ sinh nhà cửa,221667,9,0
+221866,"Chất thông tắc cống, ống nước",3,Vệ sinh nhà cửa,221667,9,1
+222333,"Giấy vệ sinh, khăn giấy",2,Chăm sóc nhà cửa,221000,9,1
+222334,Giấy vệ sinh,3,"Giấy vệ sinh, khăn giấy",222333,9,0
+222367,Khăn giấy,3,"Giấy vệ sinh, khăn giấy",222333,9,1
+222400,Khăn ướt,3,"Giấy vệ sinh, khăn giấy",222333,9,0
+222999,Chăm sóc nhà cửa khác,2,Chăm sóc nhà cửa,221000,9,1
+241000,Nhà cửa và đời sống,1,"",0,9,1
+241001,Đồ dùng phòng ngủ,2,Nhà cửa và đời sống,241000,9,1
+241002,"Chăn, ga, gối, nệm",3,Đồ dùng phòng ngủ,241001,9,1
+241035,Phụ kiện phòng ngủ,3,Đồ dùng phòng ngủ,241001,9,0
+241068,Nội thất phòng ngủ,3,Đồ dùng phòng ngủ,241001,9,0
+241667,Dụng cụ phòng ăn và nhà bếp,2,Nhà cửa và đời sống,241000,9,1
+241668,Nồi điện các loại,3,Dụng cụ phòng ăn và nhà bếp,241667,9,1
+241701,Nồi và chảo,3,Dụng cụ phòng ăn và nhà bếp,241667,9,0
+241734,"Máy xay, máy ép",3,Dụng cụ phòng ăn và nhà bếp,241667,9,0
+241767,"Lò nướng, vỉ nướng, lò vi sóng",3,Dụng cụ phòng ăn và nhà bếp,241667,9,0
+241800,Thiết bị nhà bếp khác,3,Dụng cụ phòng ăn và nhà bếp,241667,9,0
+241833,"Dao, thớt, kéo làm bếp",3,Dụng cụ phòng ăn và nhà bếp,241667,9,0
+241866,"Dụng cụ làm bánh, pha chế",3,Dụng cụ phòng ăn và nhà bếp,241667,9,0
+241899,"Tô, chén, đĩa, muỗng, đũa",3,Dụng cụ phòng ăn và nhà bếp,241667,9,0
+241932,"Bình, ly, cốc",3,Dụng cụ phòng ăn và nhà bếp,241667,9,0
+241965,"Màng bọc thực phẩm, giấy thấm dầu, giấy bạc,...",3,Dụng cụ phòng ăn và nhà bếp,241667,9,0
+241998,Hộp đựng thực phẩm,3,Dụng cụ phòng ăn và nhà bếp,241667,9,0
+242031,"Khăn lau bếp, nhấc lót nồi",3,Dụng cụ phòng ăn và nhà bếp,241667,9,0
+242064,"Túi rác, sọt rác",3,Dụng cụ phòng ăn và nhà bếp,241667,9,0
+242097,Dụng cụ bếp khác,3,Dụng cụ phòng ăn và nhà bếp,241667,9,0
+242333,Đồ dùng phòng tắm,2,Nhà cửa và đời sống,241000,9,1
+242334,Dụng cụ vệ sinh,3,Đồ dùng phòng tắm,242333,9,0
+242367,"Khăn tắm, bông tắm",3,Đồ dùng phòng tắm,242333,9,1
+242400,"Móc treo, thùng đựng đồ",3,Đồ dùng phòng tắm,242333,9,0
+242433,Đồ dùng phòng tắm khác,3,Đồ dùng phòng tắm,242333,9,0
+242999,Trang trí nhà cửa,2,Nhà cửa và đời sống,241000,9,1
+243000,Thảm,3,Trang trí nhà cửa,242999,9,1
+243033,"Lọ, hoa giả, tranh trang trí",3,Trang trí nhà cửa,242999,9,0
+243066,Vật phẩm phong thủy,3,Trang trí nhà cửa,242999,9,0
+243099,Dụng cụ trang trí nhà khác,3,Trang trí nhà cửa,242999,9,0
+243665,Sửa chữa nhà cửa,2,Nhà cửa và đời sống,241000,9,1
+243666,"Máy đo nhiệt độ, độ ẩm",3,Sửa chữa nhà cửa,243665,9,0
+243699,Thước đo các loại,3,Sửa chữa nhà cửa,243665,9,0
+243732,Kềm và dũa các loại,3,Sửa chữa nhà cửa,243665,9,0
+243765,"Cờ lê, mỏ lết, búa các loại",3,Sửa chữa nhà cửa,243665,9,0
+243798,"Ốc vít, đinh tán các loại",3,Sửa chữa nhà cửa,243665,9,1
+243831,"Máy khoan, mũi khoan, máy mài, máy cắt",3,Sửa chữa nhà cửa,243665,9,0
+243864,Sửa chữa nhà cửa khác,3,Sửa chữa nhà cửa,243665,9,0
+244331,Đồ thờ cúng,2,Nhà cửa và đời sống,241000,9,0
+244332,"Bàn thờ, trang thờ, tủ thờ",3,Đồ thờ cúng,244331,9,0
+244365,Đèn thờ các loại,3,Đồ thờ cúng,244331,9,0
+244398,"Lư hương, bát nhang",3,Đồ thờ cúng,244331,9,0
+244431,Đồ thờ cúng khác,3,Đồ thờ cúng,244331,9,1
+244997,Văn phòng phẩm,2,Nhà cửa và đời sống,241000,9,1
+244998,Giấy in liên - giấy fax nhiệt,3,Văn phòng phẩm,244997,9,0
+245031,Phiếu - biểu mẫu,3,Văn phòng phẩm,244997,9,0
+245064,Kệ - bìa hồ sơ,3,Văn phòng phẩm,244997,9,0
+245097,Bộ dụng cụ học tập,3,Văn phòng phẩm,244997,9,1
+245130,Máy tính học sinh,3,Văn phòng phẩm,244997,9,0
+245163,Sổ tay-tập vở,3,Văn phòng phẩm,244997,9,0
+245196,Văn phòng phẩm khác,3,Văn phòng phẩm,244997,9,0
+245663,"Ngoài trời, sân vườn",2,Nhà cửa và đời sống,241000,9,1
+245664,Dụng cụ làm vườn,3,"Ngoài trời, sân vườn",245663,9,0
+245697,"Hạt giống, cây con",3,"Ngoài trời, sân vườn",245663,9,1
+245730,"Đất, dưỡng cây, hoa",3,"Ngoài trời, sân vườn",245663,9,0
+245763,"Chậu cây, xịt rửa và phụ kiện",3,"Ngoài trời, sân vườn",245663,9,0
+246329,Đèn và thiết bị chiếu sáng,2,Nhà cửa và đời sống,241000,9,1
+246330,Đèn các loại,3,Đèn và thiết bị chiếu sáng,246329,9,0
+246363,Bóng và linh kiện đèn,3,Đèn và thiết bị chiếu sáng,246329,9,1
+261000,Điện thoại,1,"",0,71,1
+261001,iPhone,2,Điện thoại,261000,71,1
+261667,Samsung,2,Điện thoại,261000,71,1
+262333,Xiaomi,2,Điện thoại,261000,71,1
+262999,Oppo,2,Điện thoại,261000,71,1
+263665,Realme,2,Điện thoại,261000,71,1
+264331,Vivo,2,Điện thoại,261000,71,1
+264997,Asus,2,Điện thoại,261000,71,1
+265663,Nokia,2,Điện thoại,261000,71,1
+266329,Tecno,2,Điện thoại,261000,71,1
+266995,Masstel,2,Điện thoại,261000,71,1
+267661,Infinix,2,Điện thoại,261000,71,1
+268327,Điện thoại phổ thông,2,Điện thoại,261000,71,1
+268993,Các loại điện thoại khác,2,Điện thoại,261000,71,1
+281000,Máy tính bảng,1,"",0,71,1
+281001,iPad,2,Máy tính bảng,281000,71,1
+281667,Samsung,2,Máy tính bảng,281000,71,1
+282333,Xiaomi,2,Máy tính bảng,281000,71,1
+282999,Lenovo,2,Máy tính bảng,281000,71,1
+283665,Nokia,2,Máy tính bảng,281000,71,1
+284331,Oppo,2,Máy tính bảng,281000,71,1
+284997,TCL,2,Máy tính bảng,281000,71,1
+285663,Masstel,2,Máy tính bảng,281000,71,1
+286329,Máy tính bảng khác,2,Máy tính bảng,281000,71,1
+301000,Đồng hồ thông minh,1,"",0,71,1
+301001,Apple Watch,2,Đồng hồ thông minh,301000,71,1
+301667,Xiaomi,2,Đồng hồ thông minh,301000,71,1
+302333,Samsung,2,Đồng hồ thông minh,301000,71,1
+302999,Huawei,2,Đồng hồ thông minh,301000,71,1
+303665,Garmin,2,Đồng hồ thông minh,301000,71,1
+304331,Oppo,2,Đồng hồ thông minh,301000,71,1
+304997,Soundpeats,2,Đồng hồ thông minh,301000,71,1
+305663,Mykid,2,Đồng hồ thông minh,301000,71,1
+306329,Kidcare,2,Đồng hồ thông minh,301000,71,1
+306995,Đồng hồ thông minh khác,2,Đồng hồ thông minh,301000,71,1
+307661,Vòng đeo thông minh,2,Đồng hồ thông minh,301000,71,1
+307662,Huawei,3,Vòng đeo thông minh,307661,71,1
+307695,Xiaomi,3,Vòng đeo thông minh,307661,71,1
+321000,Laptop,1,"",0,71,1
+321001,Macbook,2,Laptop,321000,71,1
+321667,Asus,2,Laptop,321000,71,1
+322333,Lenovo,2,Laptop,321000,71,1
+322999,Dell,2,Laptop,321000,71,1
+323665,HP,2,Laptop,321000,71,1
+324331,Acer,2,Laptop,321000,71,1
+324997,Huawei,2,Laptop,321000,71,1
+325663,MSI,2,Laptop,321000,71,1
+326329,Microsoft,2,Laptop,321000,71,1
+326995,Gigabyte,2,Laptop,321000,71,1
+327661,Laptop khác,2,Laptop,321000,71,1
+341000,Phụ kiện,1,"",0,71,1
+341001,Phụ kiện di động,2,Phụ kiện,341000,71,1
+341002,Sim,3,Phụ kiện di động,341001,71,1
+341035,Sạc dự phòng,3,Phụ kiện di động,341001,71,1
+341068,"Cáp, sạc",3,Phụ kiện di động,341001,71,1
+341101,Bao da - ốp lưng,3,Phụ kiện di động,341001,71,1
+341134,Miếng dán màn hình,3,Phụ kiện di động,341001,71,1
+341167,"Giá đỡ, chấn đế, móc dán",3,Phụ kiện di động,341001,71,1
+341200,Phụ kiện di động khác,3,Phụ kiện di động,341001,71,1
+341667,Phụ kiện laptop,2,Phụ kiện,341000,71,1
+341668,"Chuột, bàn phím",3,Phụ kiện laptop,341667,71,1
+341701,Balo/túi chống sốc,3,Phụ kiện laptop,341667,71,1
+341734,Webcam,3,Phụ kiện laptop,341667,71,1
+341767,"Giá đỡ, chân đế",3,Phụ kiện laptop,341667,71,1
+341800,Lót chuột,3,Phụ kiện laptop,341667,71,1
+341833,Sạc laptop,3,Phụ kiện laptop,341667,71,1
+342333,Thiết bị âm thanh,2,Phụ kiện,341000,71,1
+342334,Tai nghe bluetooth,3,Thiết bị âm thanh,342333,71,1
+342367,Tai nghe dây,3,Thiết bị âm thanh,342333,71,1
+342400,Loa,3,Thiết bị âm thanh,342333,71,1
+342433,Micro,3,Thiết bị âm thanh,342333,71,1
+342999,Phụ kiện khác,2,Phụ kiện,341000,71,1
+361000,Linh kiện sửa chữa,1,"",0,71,1
+361001,Màn hình,2,Linh kiện sửa chữa,361000,71,1
+361667,Pin,2,Linh kiện sửa chữa,361000,71,1
+362333,Camera,2,Linh kiện sửa chữa,361000,71,1
+362999,Bo mạch,2,Linh kiện sửa chữa,361000,71,1
+363665,Linh kiện sửa chữa khác,2,Linh kiện sửa chữa,361000,71,1
+721000,Sữa cho bé,1,"",0,1,1
+721001,Sữa bột,2,Sữa cho bé,721000,1,1
+722001,Sữa nước các loại,2,Sữa cho bé,721000,1,1
+741000,Bỉm - Tã,1,"",0,1,1
+741001,Bỉm - Tã dán,2,Bỉm - Tã,741000,1,1
+742001,Bỉm - Tã quần,2,Bỉm - Tã,741000,1,1
+743001,Miếng lót,2,Bỉm - Tã,741000,1,1
+744001,Bỉm - Tã người lớn,2,Bỉm - Tã,741000,1,1
+745001,"Bỉm, tã khác",2,Bỉm - Tã,741000,1,1
+761000,Bình sữa và phụ kiện,1,"",0,1,1
+761001,Bình sữa,2,Bình sữa và phụ kiện,761000,1,1
+762001,Núm ty cho bé,2,Bình sữa và phụ kiện,761000,1,1
+762002,Núm ty thay thế,3,Núm ty cho bé,762001,1,1
+762035,Núm ty ngậm & Ty giả,3,Núm ty cho bé,762001,1,1
+763001,Hộp chia sữa,2,Bình sữa và phụ kiện,761000,1,1
+764001,Cọ rửa bình,2,Bình sữa và phụ kiện,761000,1,1
+765001,Giá úp bình sữa,2,Bình sữa và phụ kiện,761000,1,1
+766001,Nước rửa bình,2,Bình sữa và phụ kiện,761000,1,1
+767001,Túi giữ nhiệt,2,Bình sữa và phụ kiện,761000,1,1
+781000,"Ăn dặm, dinh dưỡng",1,"",0,1,1
+781001,Bánh ăn dặm,2,"Ăn dặm, dinh dưỡng",781000,1,1
+782001,Bột ăn dặm,2,"Ăn dặm, dinh dưỡng",781000,1,1
+783001,"Cháo, mì ăn dặm",2,"Ăn dặm, dinh dưỡng",781000,1,1
+783002,Cháo,3,"Cháo, mì ăn dặm",783001,1,1
+783035,Mì,3,"Cháo, mì ăn dặm",783001,1,1
+784001,Váng sữa,2,"Ăn dặm, dinh dưỡng",781000,1,1
+785001,Phô mai,2,"Ăn dặm, dinh dưỡng",781000,1,1
+786001,Sữa chua,2,"Ăn dặm, dinh dưỡng",781000,1,1
+787001,Gia vị chế biến,2,"Ăn dặm, dinh dưỡng",781000,1,1
+787002,Dầu ăn,3,Gia vị chế biến,787001,1,1
+787035,Hạt nêm,3,Gia vị chế biến,787001,1,1
+787068,"Mắm, nước tương",3,Gia vị chế biến,787001,1,1
+787101,Gia vị rắc cơm,3,Gia vị chế biến,787001,1,1
+787134,Chà bông/ruốc,3,Gia vị chế biến,787001,1,1
+788001,Dinh dưỡng đóng lọ,2,"Ăn dặm, dinh dưỡng",781000,1,1
+789001,Thực phẩm ăn dặm khác,2,"Ăn dặm, dinh dưỡng",781000,1,1
+801000,Vitamin & sức khỏe,1,"",0,1,1
+801001,Vitamin cho bé,2,Vitamin & sức khỏe,801000,1,1
+801002,DHA/Omega3,3,Vitamin cho bé,801001,1,1
+801035,Săt - Kẽm - Canxi,3,Vitamin cho bé,801001,1,1
+801068,Vitamin D3K2,3,Vitamin cho bé,801001,1,1
+801101,Vitamin khác,3,Vitamin cho bé,801001,1,1
+802001,Men vi sinh,2,Vitamin & sức khỏe,801000,1,1
+803001,Giúp bé ăn ngon,2,Vitamin & sức khỏe,801000,1,1
+804001,Bột sữa non,2,Vitamin & sức khỏe,801000,1,1
+805001,Tăng cường miễn dịch,2,Vitamin & sức khỏe,801000,1,1
+806001,Tăng sức đề kháng,2,Vitamin & sức khỏe,801000,1,1
+807001,Miếng dán hạ sốt,2,Vitamin & sức khỏe,801000,1,1
+821000,Đồ dùng mẹ & bé,1,"",0,1,1
+821001,Máy hút sữa,2,Đồ dùng mẹ & bé,821000,1,1
+822001,Máy hâm sữa,2,Đồ dùng mẹ & bé,821000,1,1
+823001,Máy rửa bình - máy tiệt trùng bình sữa,2,Đồ dùng mẹ & bé,821000,1,1
+824001,Máy pha sữa,2,Đồ dùng mẹ & bé,821000,1,1
+825001,Máy đun nước pha sữa,2,Đồ dùng mẹ & bé,821000,1,1
+826001,Máy làm ấm khăn ướt,2,Đồ dùng mẹ & bé,821000,1,1
+827001,Túi trữ sữa,2,Đồ dùng mẹ & bé,821000,1,1
+828001,"Xe đẩy, đai, địu",2,Đồ dùng mẹ & bé,821000,1,1
+828002,Xe đẩy,3,"Xe đẩy, đai, địu",828001,1,1
+828035,Đai,3,"Xe đẩy, đai, địu",828001,1,1
+828068,Địu,3,"Xe đẩy, đai, địu",828001,1,1
+828101,Ghế ngồi xe hơi,3,"Xe đẩy, đai, địu",828001,1,1
+829001,"Giường, nôi, cũi",2,Đồ dùng mẹ & bé,821000,1,1
+830001,Đồ dùng bé ngủ,2,Đồ dùng mẹ & bé,821000,1,1
+830035,Gối,3,Đồ dùng bé ngủ,830001,1,1
+830068,"Nệm, màn chống muỗi",3,Đồ dùng bé ngủ,830001,1,1
+830101,Ủ kén - Nhộng chũn,3,Đồ dùng bé ngủ,830001,1,1
+830134,"Chăn mền, chiếu",3,Đồ dùng bé ngủ,830001,1,1
+831001,Dụng cụ bé ăn,2,Đồ dùng mẹ & bé,821000,1,1
+831002,"Ghế nằm, ngồi ăn",3,Dụng cụ bé ăn,831001,1,1
+831035,"Tô, chén, đĩa, muỗng",3,Dụng cụ bé ăn,831001,1,1
+831068,Bình tập uống,3,Dụng cụ bé ăn,831001,1,1
+831101,"Ly, cốc uông nước",3,Dụng cụ bé ăn,831001,1,1
+831134,Yếm ăn cho bé,3,Dụng cụ bé ăn,831001,1,1
+831167,"Bình ủ sữa, giữ nhiệt",3,Dụng cụ bé ăn,831001,1,1
+831200,Dụng cụ chế biến ăn dặm,3,Dụng cụ bé ăn,831001,1,1
+831233,Dụng cụ ăn dặm khác,3,Dụng cụ bé ăn,831001,1,1
+832001,Chăm sóc da cho bé,2,Đồ dùng mẹ & bé,821000,1,1
+832002,Kem chống nắng,3,Chăm sóc da cho bé,832001,1,1
+832035,Kem dưỡng da,3,Chăm sóc da cho bé,832001,1,1
+832068,"Phấn rôm, kem hăm",3,Chăm sóc da cho bé,832001,1,1
+832101,Xịt chống muỗi - kem chống muỗi,3,Chăm sóc da cho bé,832001,1,1
+833001,"Sức khỏe, an toàn",2,Đồ dùng mẹ & bé,821000,1,1
+833002,"Nhiệt kế, huyết áp",3,"Sức khỏe, an toàn",833001,1,1
+833035,"Dầu nóng, khuynh diệp",3,"Sức khỏe, an toàn",833001,1,1
+833068,"Trị muỗi, côn trùng",3,"Sức khỏe, an toàn",833001,1,1
+833101,"Chiều cao, cân nặng",3,"Sức khỏe, an toàn",833001,1,1
+833134,"Bịt ổ điện, góc bàn",3,"Sức khỏe, an toàn",833001,1,1
+841000,Thời trang & phụ kiện cho bé,1,"",0,1,1
+841001,Bé trai,2,Thời trang & phụ kiện cho bé,841000,1,1
+841002,Quần,3,Bé trai,841001,1,1
+841035,Áo,3,Bé trai,841001,1,1
+841068,Bộ quần áo,3,Bé trai,841001,1,1
+842001,Bé gái,2,Thời trang & phụ kiện cho bé,841000,1,1
+842002,Váy,3,Bé gái,842001,1,1
+842035,Áo,3,Bé gái,842001,1,1
+842068,Quần,3,Bé gái,842001,1,1
+842101,Bộ quần áo,3,Bé gái,842001,1,1
+843001,Đồ sơ sinh,2,Thời trang & phụ kiện cho bé,841000,1,1
+844001,Balo,2,Thời trang & phụ kiện cho bé,841000,1,1
+845001,"Giày, dép",2,Thời trang & phụ kiện cho bé,841000,1,1
+846001,"Kính, mũ",2,Thời trang & phụ kiện cho bé,841000,1,1
+847001,"Găng tay, tất, khẩu trang",2,Thời trang & phụ kiện cho bé,841000,1,1
+861000,"Tắm gội, vệ sinh, giặt xả",1,"",0,1,1
+861001,Tắm gội,2,"Tắm gội, vệ sinh, giặt xả",861000,1,1
+861002,Sữa tắm,3,Tắm gội,861001,1,1
+861035,Dầu gội,3,Tắm gội,861001,1,1
+861068,Dung dịch vệ sinh cho bé,3,Tắm gội,861001,1,1
+862001,Dụng cụ tắm bé,2,"Tắm gội, vệ sinh, giặt xả",861000,1,1
+862002,"Chậu, ghế, nón tắm",3,Dụng cụ tắm bé,862001,1,1
+862035,"Khăn tắm, khăn mặt",3,Dụng cụ tắm bé,862001,1,1
+863001,Vệ sinh cá nhân cho bé,2,"Tắm gội, vệ sinh, giặt xả",861000,1,1
+863002,"Kem đánh răng, nước súc miệng",3,Vệ sinh cá nhân cho bé,863001,1,1
+863035,Bàn chải đánh răng,3,Vệ sinh cá nhân cho bé,863001,1,1
+863068,Gạc rơ lưỡi,3,Vệ sinh cá nhân cho bé,863001,1,1
+863101,Nước nhỏ mắt mũi,3,Vệ sinh cá nhân cho bé,863001,1,1
+863134,Lấy ráy tai,3,Vệ sinh cá nhân cho bé,863001,1,1
+863167,Dụng cụ hút mũi,3,Vệ sinh cá nhân cho bé,863001,1,1
+863200,Tăm bông,3,Vệ sinh cá nhân cho bé,863001,1,1
+863233,"Bô, lót bồn cầu",3,Vệ sinh cá nhân cho bé,863001,1,1
+863266,Móc phơi,3,Vệ sinh cá nhân cho bé,863001,1,1
+863299,"Bấm móng tay, móng chân",3,Vệ sinh cá nhân cho bé,863001,1,1
+863332,"Khăn ướt, khăn khô",3,Vệ sinh cá nhân cho bé,863001,1,1
+863365,Xịt vệ sinh mũi,3,Vệ sinh cá nhân cho bé,863001,1,1
+864001,Giặt xả,2,"Tắm gội, vệ sinh, giặt xả",861000,1,1
+864002,"Nước giặt, bột giặt",3,Giặt xả,864001,1,1
+864035,Nước xả,3,Giặt xả,864001,1,1
+865001,Dầu massage,2,"Tắm gội, vệ sinh, giặt xả",861000,1,1
+881000,Đồ chơi và học tập,1,"",0,1,1
+881001,Đồ chơi trẻ sơ sinh,2,Đồ chơi và học tập,881000,1,1
+881002,Đồ chơi bóp chíp và xúc sắc,3,Đồ chơi trẻ sơ sinh,881001,1,1
+881035,"Gắm nướu, cắn răng",3,Đồ chơi trẻ sơ sinh,881001,1,1
+881068,Đồ chơi kệ chữ A,3,Đồ chơi trẻ sơ sinh,881001,1,1
+882001,Đồ chơi thông minh,2,Đồ chơi và học tập,881000,1,1
+882002,"Đồ chơi lắp ráp, xếp hình",3,Đồ chơi thông minh,882001,1,1
+883001,"Đồ chơi mô hình, điều khiển",2,Đồ chơi và học tập,881000,1,1
+884001,Đồ chơi gỗ,2,Đồ chơi và học tập,881000,1,1
+885001,Búp bê và thú bông,2,Đồ chơi và học tập,881000,1,1
+886001,"Xe tập đi, xe lắc, chòi chân, scooter",2,Đồ chơi và học tập,881000,1,1
+888001,Đồ chơi khác,2,Đồ chơi và học tập,881000,1,1
+889001,"Sách, truyện, dụng cụ học tập",2,Đồ chơi và học tập,881000,1,1
+889002,Sách và truyện,3,"Sách, truyện, dụng cụ học tập",889001,1,1
+889035,Dụng cụ học tập,3,"Sách, truyện, dụng cụ học tập",889001,1,1
+901000,Mẹ bầu và sau sinh,1,"",0,1,1
+901001,Sữa cho mẹ bầu,2,Mẹ bầu và sau sinh,901000,1,1
+902001,Vitamin cho mẹ bầu và mẹ sau sinh,2,Mẹ bầu và sau sinh,901000,1,1
+903001,Dinh dưỡng cho mẹ,2,Mẹ bầu và sau sinh,901000,1,1
+904001,Mỹ phẩm cho mẹ,2,Mẹ bầu và sau sinh,901000,1,1
+905001,Miếng lót thấm sữa,2,Mẹ bầu và sau sinh,901000,1,1
+906001,Băng vệ sinh,2,Mẹ bầu và sau sinh,901000,1,1
+907001,Thời trang cho mẹ,2,Mẹ bầu và sau sinh,901000,1,1
+907002,Bộ đồ sau sinh,3,Thời trang cho mẹ,907001,1,1
+907035,Quần lót,3,Thời trang cho mẹ,907001,1,1
+907068,Áo lót,3,Thời trang cho mẹ,907001,1,1
+907101,Gen nịt bụng,3,Thời trang cho mẹ,907001,1,1
+907134,Phụ kiện thời trang cho mẹ,3,Thời trang cho mẹ,907001,1,1
+2961000,các loại khác,1,"",0,0,1
+2961000,các loại khác,1,"",0,0,1
+2961000,các loại khác,1,"",0,0,1
+2961000,các loại khác,1,"",0,0,1
+2961001,các loại khác,2,"",2961000,0,1
+2961001,các loại khác,2,các loại khác,2961000,0,1
+2961001,các loại khác,2,các loại khác,2961000,0,1
+2961001,các loại khác,2,các loại khác,2961000,0,1
+2966001,các loại mẹ và bé khác,2,"",2961000,0,1
+2966001,các loại mẹ và bé khác,2,các loại khác,2961000,0,1
+2967001,các loại mỹ phẩm khác,2,các loại khác,2961000,0,1
+2967001,các loại mỹ phẩm khác,2,các loại khác,2961000,0,1

@@ -11,7 +11,7 @@ SECRET_KEY = 'longvk@123'
 
 # # Database configuration
 # SQLALCHEMY_DATABASE_URI = 'sqlite:////app/superset.db'
-
+ENABLE_PROXY_FIX = True
 # Enable feature flags
 FEATURE_FLAGS = {
     "ENABLE_JAVASCRIPT_CONTROLS": True,

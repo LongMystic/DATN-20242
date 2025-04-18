@@ -1,0 +1,7 @@
+https://dzlab.github.io/bigdata/2020/07/03/spark3-monitoring-1/
+
+https://cwiki.apache.org/confluence/display/Hive/GettingStarted
+
+https://superset.apache.org/docs/configuration/databases/#installing-database-drivers
+
+https://www.bytefold.com/running-superset-on-docker/

@@ -2,7 +2,7 @@
     <!-- Set HDFS metastore URI -->
     <property>
         <name>fs.defaultFS</name>
-        <value>hdfs://namenode:9000</value>
+        <value>hdfs://namenode:8020</value>
     </property>
 
     <!-- Configurations for HIVE metastore -->
@@ -71,9 +71,10 @@
     </property> 
     <property> 
       <name>javax.jdo.option.ConnectionURL</name> 
-      <value>jdbc:mysql://hive-metastore-mysql:3306/metastore?enabledTLSProtocols=TLSv1.2</value> 
-      <description>the URL of the MySQL database</description> 
+      <value>jdbc:mysql://mysql:3306/hive_metastore?enabledTLSProtocols=TLSv1.2</value> 
+      <description>The JDBC URL for the MySQL Hive Metastore database.</description> 
     </property>
+<!-- createDatabaseIfNotExist=true&amp; -->
 
     <!-- Iceberg Integration -->
     <property>
