@@ -1,0 +1,19 @@
+mappings:
+  - match: "*.dag.*.*.duration"
+    match_metric_type: observer
+    name: "af_agg_dag_task_duration"
+    labels:
+      airflow_id: "$1"
+      dag_id: "$2"
+      task_id: "$3"
+  - match: "*.operator_failures_.*"
+    match_metric_type: counter
+    name: "af_agg_operator_failures"
+    labels:
+      airflow_id: "$1"
+      operator_name: "$2"
+  - match: "*.scheduler_heartbeat"
+    match_metric_type: counter
+    name: "af_agg_scheduler_heartbeat"
+    labels:
+      airflow_id: "$1"

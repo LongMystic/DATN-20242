@@ -26,6 +26,9 @@ docker compose up namenode datanode1 datanode2 resourcemanager nodemanager1 node
 === START AIRFLOW CLUSTER ===
 docker compose up postgres redis airflow-webserver airflow-scheduler airflow-worker airflow-triggerer airflow-init -d
 
+=== START AIRFLOW LOCAL MODE ===
+docker compose up postgres airflow-webserver airflow-scheduler airflow-init statsd-exporter -d
+
 docker exec -it namenode sh
 hdfs dfs -setfacl -m user:spark_user:rwx /
 hdfs dfs -mkdir /spark-events

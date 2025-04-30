@@ -174,3 +174,9 @@ cython_debug/
 /services/postgres/data/
 /services/airflow/dags/__pycache__/
 /services/airflow/dags/*.pyc
+
+# constant include telegram bot token
+/services/airflow/dags/utils/credentials.py
+
+# namenode datanode
+/services/hadoop/data

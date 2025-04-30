@@ -35,52 +35,78 @@ x-airflow-common:
       condition: service_healthy
 
 services:
-  # HDFS: namenode
+#   ===== HDFS: namenode =====
   namenode:
     image: bde2020/hadoop-namenode:2.0.0-hadoop3.2.1-java8
     container_name: namenode
+    hostname: namenode
     environment:
-      - CLUSTER_NAME=datn_2025
-      - HADOOP_CONF_DIR=/etc/hadoop
+      CLUSTER_NAME: datn_2025
+      HADOOP_CONF_DIR: /etc/hadoop
+      HDFS_NAMENODE_OPTS: > 
+        -Dcom.sun.management.jmxremote.authenticate=false 
+        -Dcom.sun.management.jmxremote.ssl=false 
+        -Dcom.sun.management.jmxremote.local.only=false 
+        -Dcom.sun.management.jmxremote.port=9991 
+        -javaagent:/jmx/jmx_prometheus_javaagent-0.20.0.jar=9091:/jmx/namenode.yml
     ports:
       - "9870:9870"
       - "8020:8020"
     volumes:
       - ./services/hadoop/conf/core-site.xml:/etc/hadoop/core-site.xml
       - ./services/hadoop/conf/hdfs-site.xml:/etc/hadoop/hdfs-site.xml
-      # - ./services/hadoop/conf/mapred-site.xml:/etc/hadoop/mapred-site.xml
       - ./services/hadoop/conf/yarn-site.xml:/etc/hadoop/yarn-site.xml
-      - ./services/hadoop/conf/capacity-scheduler.xml:/etc/hadoop/capacity-scheduler.xml
-      # - namenode_data:/hadoop/dfs/name
+#      - ./services/hadoop/conf/capacity-scheduler.xml:/etc/hadoop/capacity-scheduler.xml
+      - ./services/jmx/jmx_prometheus_javaagent-0.20.0.jar:/jmx/jmx_prometheus_javaagent-0.20.0.jar
+      - ./services/jmx/namenode.yml:/jmx/namenode.yml
+      - ./services/hadoop/data/namenode:/opt/data/namenode
     networks:
       - datn_2025_network
   
-  # HDFS: datanode
+#   ===== HDFS: datanode =====
   datanode1:
     image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
     container_name: datanode1
-    # environment:
+    hostname: datanode1
+    environment:
+      HADOOP_CONF_DIR: /etc/hadoop
+      HADOOP_DATANODE_OPTS: >
+        -Dcom.sun.management.jmxremote.authenticate=false 
+        -Dcom.sun.management.jmxremote.ssl=false 
+        -Dcom.sun.management.jmxremote.local.only=false 
+        -Dcom.sun.management.jmxremote.port=9992
+        -javaagent:/jmx/jmx_prometheus_javaagent-0.20.0.jar=9092:/jmx/datanode.yml
     volumes:
       - ./services/hadoop/conf/core-site.xml:/etc/hadoop/core-site.xml
       - ./services/hadoop/conf/hdfs-site.xml:/etc/hadoop/hdfs-site.xml
-      # - ./services/hadoop/conf/mapred-site.xml:/etc/hadoop/mapred-site.xml
       - ./services/hadoop/conf/yarn-site.xml:/etc/hadoop/yarn-site.xml
-      - ./services/hadoop/conf/capacity-scheduler.xml:/etc/hadoop/capacity-scheduler.xml
-      # - datanode_data:/hadoop/dfs/data
+#      - ./services/hadoop/conf/capacity-scheduler.xml:/etc/hadoop/capacity-scheduler.xml
+      - ./services/jmx/jmx_prometheus_javaagent-0.20.0.jar:/jmx/jmx_prometheus_javaagent-0.20.0.jar
+      - ./services/jmx/datanode.yml:/jmx/datanode.yml
+      - ./services/hadoop/data/datanode1:/opt/data/datanode
     networks:
       - datn_2025_network
   
   datanode2:
     image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
     container_name: datanode2
-    # environment:
+    hostname: datanode2
+    environment:
+      HADOOP_CONF_DIR: /etc/hadoop
+      HADOOP_DATANODE_OPTS: >
+        -Dcom.sun.management.jmxremote.authenticate=false 
+        -Dcom.sun.management.jmxremote.ssl=false 
+        -Dcom.sun.management.jmxremote.local.only=false 
+        -Dcom.sun.management.jmxremote.port=9993
+        -javaagent:/jmx/jmx_prometheus_javaagent-0.20.0.jar=9093:/jmx/datanode.yml
     volumes:
       - ./services/hadoop/conf/core-site.xml:/etc/hadoop/core-site.xml
       - ./services/hadoop/conf/hdfs-site.xml:/etc/hadoop/hdfs-site.xml
-      # - ./services/hadoop/conf/mapred-site.xml:/etc/hadoop/mapred-site.xml
       - ./services/hadoop/conf/yarn-site.xml:/etc/hadoop/yarn-site.xml
-      - ./services/hadoop/conf/capacity-scheduler.xml:/etc/hadoop/capacity-scheduler.xml
-      # - datanode_data:/hadoop/dfs/data
+#      - ./services/hadoop/conf/capacity-scheduler.xml:/etc/hadoop/capacity-scheduler.xml
+      - ./services/jmx/jmx_prometheus_javaagent-0.20.0.jar:/jmx/jmx_prometheus_javaagent-0.20.0.jar
+      - ./services/jmx/datanode.yml:/jmx/datanode.yml
+      - ./services/hadoop/data/datanode2:/opt/data/datanode
     networks:
       - datn_2025_network
   
@@ -90,13 +116,20 @@ services:
     container_name: resourcemanager
     hostname: resourcemanager
     environment:
-      - HADOOP_CONF_DIR=/etc/hadoop
+      HADOOP_CONF_DIR: /etc/hadoop
+      YARN_RESOURCEMANAGER_OPTS: >
+        -Dcom.sun.management.jmxremote.authenticate=false 
+        -Dcom.sun.management.jmxremote.ssl=false 
+        -Dcom.sun.management.jmxremote.local.only=false 
+        -Dcom.sun.management.jmxremote.port=9994
+        -javaagent:/jmx/jmx_prometheus_javaagent-0.20.0.jar=9094:/jmx/resourcemanager.yml
     volumes:
       - ./services/hadoop/conf/core-site.xml:/etc/hadoop/core-site.xml
       - ./services/hadoop/conf/hdfs-site.xml:/etc/hadoop/hdfs-site.xml
-      # - ./services/hadoop/conf/mapred-site.xml:/etc/hadoop/mapred-site.xml
       - ./services/hadoop/conf/yarn-site.xml:/etc/hadoop/yarn-site.xml
-      - ./services/hadoop/conf/capacity-scheduler.xml:/etc/hadoop/capacity-scheduler.xml
+#      - ./services/hadoop/conf/capacity-scheduler.xml:/etc/hadoop/capacity-scheduler.xml
+      - ./services/jmx/jmx_prometheus_javaagent-0.20.0.jar:/jmx/jmx_prometheus_javaagent-0.20.0.jar
+      - ./services/jmx/resourcemanager.yml:/jmx/resourcemanager.yml
     ports:
       - "8088:8088"
       - "8032:8032"
@@ -106,8 +139,15 @@ services:
   nodemanager1:
     image: bde2020/hadoop-nodemanager:2.0.0-hadoop3.2.1-java8
     container_name: nodemanager1
+    hostname: nodemanager1
     environment:
-      - HADOOP_CONF_DIR=/etc/hadoop
+      HADOOP_CONF_DIR: /etc/hadoop
+      YARN_NODEMANAGER_OPTS: >
+        -Dcom.sun.management.jmxremote.authenticate=false 
+        -Dcom.sun.management.jmxremote.ssl=false 
+        -Dcom.sun.management.jmxremote.local.only=false 
+        -Dcom.sun.management.jmxremote.port=9995
+        -javaagent:/jmx/jmx_prometheus_javaagent-0.20.0.jar=9095:/jmx/nodemanager.yml
     ports:
       - "8043:8042"
     deploy:
@@ -118,17 +158,25 @@ services:
     volumes:
       - ./services/hadoop/conf/core-site.xml:/etc/hadoop/core-site.xml
       - ./services/hadoop/conf/hdfs-site.xml:/etc/hadoop/hdfs-site.xml
-      # - ./services/hadoop/conf/mapred-site.xml:/etc/hadoop/mapred-site.xml
       - ./services/hadoop/conf/yarn-site.xml:/etc/hadoop/yarn-site.xml
-      - ./services/hadoop/conf/capacity-scheduler.xml:/etc/hadoop/capacity-scheduler.xml
+#      - ./services/hadoop/conf/capacity-scheduler.xml:/etc/hadoop/capacity-scheduler.xml
+      - ./services/jmx/jmx_prometheus_javaagent-0.20.0.jar:/jmx/jmx_prometheus_javaagent-0.20.0.jar
+      - ./services/jmx/nodemanager.yml:/jmx/nodemanager.yml
     networks:
       - datn_2025_network
 
   nodemanager2:
     image: bde2020/hadoop-nodemanager:2.0.0-hadoop3.2.1-java8
     container_name: nodemanager2
+    hostname: nodemanager2
     environment:
-      - HADOOP_CONF_DIR=/etc/hadoop
+      HADOOP_CONF_DIR: /etc/hadoop
+      YARN_NODEMANAGER_OPTS: >
+        -Dcom.sun.management.jmxremote.authenticate=false
+        -Dcom.sun.management.jmxremote.ssl=false
+        -Dcom.sun.management.jmxremote.local.only=false
+        -Dcom.sun.management.jmxremote.port=9996
+        -javaagent:/jmx/jmx_prometheus_javaagent-0.20.0.jar=9096:/jmx/nodemanager.yml
     ports:
       - "8044:8042"
     deploy:
@@ -139,9 +187,10 @@ services:
     volumes:
       - ./services/hadoop/conf/core-site.xml:/etc/hadoop/core-site.xml
       - ./services/hadoop/conf/hdfs-site.xml:/etc/hadoop/hdfs-site.xml
-      # - ./services/hadoop/conf/mapred-site.xml:/etc/hadoop/mapred-site.xml
       - ./services/hadoop/conf/yarn-site.xml:/etc/hadoop/yarn-site.xml
-      - ./services/hadoop/conf/capacity-scheduler.xml:/etc/hadoop/capacity-scheduler.xml
+#      - ./services/hadoop/conf/capacity-scheduler.xml:/etc/hadoop/capacity-scheduler.xml
+      - ./services/jmx/jmx_prometheus_javaagent-0.20.0.jar:/jmx/jmx_prometheus_javaagent-0.20.0.jar
+      - ./services/jmx/nodemanager.yml:/jmx/nodemanager.yml
     networks:
       - datn_2025_network
 
@@ -370,7 +419,6 @@ services:
       interval: 10s
       retries: 5
       start_period: 5s
-    #    restart: always
     networks:
       - datn_2025_network
 
@@ -387,7 +435,6 @@ services:
       timeout: 10s
       retries: 5
       start_period: 30s
-    #    restart: always
     depends_on:
       <<: *airflow-common-depends-on
       airflow-init:
@@ -405,7 +452,6 @@ services:
       timeout: 10s
       retries: 5
       start_period: 30s
-    #    restart: always
     depends_on:
       <<: *airflow-common-depends-on
       airflow-init:
@@ -484,6 +530,18 @@ services:
     networks:
       - datn_2025_network
 
+  statsd-exporter:
+    image: prom/statsd-exporter:v0.26.1
+    container_name: statsd-exporter
+    hostname: statsd-exporter
+    command: "--statsd.listen-udp=:8125 --web.listen-address=:9102"
+    ports:
+      - "9102:9102"
+      - "8125:8125/udp"
+    volumes:
+      - ./services/statsd/mapping.yml:/tmp/mapping.yml
+    networks:
+      - datn_2025_network
 
 networks:
   datn_2025_network:

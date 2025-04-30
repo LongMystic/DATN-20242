@@ -1,0 +1,35 @@
+- namenode
+    + hostname : namenode
+    + port:
+        ++ container: 9870 <= 9870, 8020 <= 8020
+        ++ monitor: 9991 (jmx), 9091 (jmx-exporter)
+
+- datanode1:
+    + hostname : datanode1
+    + port:
+        ++ container: None
+        ++ monitor: 9992 (jmx), 9092 (jmx-exporter)
+
+- datanode2:
+    + hostname : datanode2
+    + port:
+        ++ container: None
+        ++ monitor: 9993 (jmx), 9093 (jmx-exporter)
+
+- resourcemanager:
+    + hostname: resourcemanager
+    + port:
+        ++ container: 8088 <= 8088, 8032 <= 8032
+        ++ monitor: 9994 (jmx), 9094 (jmx-exporter)
+
+- nodemanager1:
+    + hostname: nodemanager1
+    + port:
+        ++ container: 8043 <= 8042
+        ++ monitor: 9995 (jmx), 9095 (jmx-exporter)
+
+- nodemanager2:
+    + hostname: nodemanager2
+    + port:
+        ++ container: 8044 <= 8042
+        ++ monitor: 9996 (jmx), 9096 (jmx-exporter)
