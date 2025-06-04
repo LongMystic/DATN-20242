@@ -28,6 +28,8 @@ docker compose up postgres redis airflow-webserver airflow-scheduler airflow-wor
 
 === START AIRFLOW LOCAL MODE ===
 docker compose up postgres airflow-webserver airflow-scheduler airflow-init statsd-exporter -d
+docker compose up postgres airflow-webserver airflow-scheduler airflow-init -d
+docker compose up airflow-webserver airflow-scheduler airflow-init -d
 
 docker exec -it namenode sh
 hdfs dfs -setfacl -m user:spark_user:rwx /
@@ -48,3 +50,12 @@ airflow connections add 'spark_conn_id' \
     --conn-schema 'default' \
     --conn-login 'spark_user' \
     --conn-extra '{"auth": "NOSASL"}'
+
+
+avg by (instance) (
+  process_resident_memory_bytes{job=~"namenode|datanode1|datanode2|resourcemanager|nodemanager1|nodemanager2"}
+) / 1024 / 1024
+
+avg by (instance) (
+  process_resident_memory_bytes{job="namenode"}
+) / 1024 / 1024

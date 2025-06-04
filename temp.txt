@@ -1,0 +1,28 @@
+holidays_events.csv
+10
+Index(['date', 'type', 'locale', 'locale_name', 'description', 'transferred'], dtype='object')
+
+
+items.csv
+10
+Index(['item_nbr', 'family', 'class', 'perishable'], dtype='object')
+
+
+oil.csv
+10
+Index(['date', 'dcoilwtico'], dtype='object')
+
+
+stores.csv
+10
+Index(['store_nbr', 'city', 'state', 'type', 'cluster'], dtype='object')
+
+
+train.csv
+10
+Index(['id', 'date', 'store_nbr', 'item_nbr', 'unit_sales', 'onpromotion'], dtype='object')
+
+
+transactions.csv
+10
+Index(['date', 'store_nbr', 'transactions'], dtype='object')

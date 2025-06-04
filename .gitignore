@@ -180,3 +180,12 @@ cython_debug/
 
 # namenode datanode
 /services/hadoop/data
+/data
+/services/mysql/data
+
+.DS_Store
+
+# grafana prometheus superset
+/services/grafana/data
+/services/prometheus/data
+/services/superset/data

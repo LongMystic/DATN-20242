@@ -1,0 +1,9 @@
+avg by (job, instance) (
+  rate(process_cpu_seconds_total{job=~"$job|.*"}[5m])
+) * 100
+
+
+
+avg by (instance) (
+  process_resident_memory_bytes{job=~"namenode|datanode1|datanode2|resourcemanager|nodemanager1|nodemanager2"}
+) / 1024 / 1024

@@ -9,9 +9,9 @@ from utils.utils import get_variables
 from utils.constant import *
 from utils.notify_telegram import notify_success, notify_failure
 
-DAG_NAME = "mysql_to_iceberg_daily"
+DAG_NAME = "sales_reporting_daily"
 
-SCHEDULE_INTERVAL = "00 02 * * *"
+SCHEDULE_INTERVAL = "00 01 * * *"
 
 default_args = {
     "owner": "airflow",

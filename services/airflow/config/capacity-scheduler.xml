@@ -1,4 +1,4 @@
-<configuration>
+<!-- <configuration>
     <property>
         <name>yarn.scheduler.capacity.root.queues</name>
         <value>default</value>
@@ -27,4 +27,4 @@
         <name>yarn.scheduler.capacity.root.default.acl_administer_queue</name>
         <value>*</value>
     </property>
-</configuration>
+</configuration> -->
