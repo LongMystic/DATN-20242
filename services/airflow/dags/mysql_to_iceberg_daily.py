@@ -7,10 +7,11 @@ from task_group.task_group import load_raw, load_staging, load_warehouse
 from datetime import timedelta, datetime
 from utils.utils import get_variables
 from utils.constant import *
+from utils.notify_telegram import notify_success, notify_failure
 
-DAG_NAME = "mysql_to_iceberg_daily"
+DAG_NAME = "sales_reporting_daily"
 
-SCHEDULE_INTERVAL = "00 02 * * *"
+SCHEDULE_INTERVAL = "00 01 * * *"
 
 default_args = {
     "owner": "airflow",
@@ -27,7 +28,9 @@ with DAG(
     default_args=default_args,
     max_active_tasks=MAX_ACTIVE_TASKS,
     max_active_runs=MAX_ACTIVE_RUNS,
-    tags=["daily", "longvk"]
+    tags=["daily", "longvk"],
+    on_success_callback=notify_success,
+    on_failure_callback=notify_failure
 
 ) as dag:
     logging.info(str(variable))

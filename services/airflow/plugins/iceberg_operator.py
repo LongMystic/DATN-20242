@@ -13,8 +13,9 @@ class IcebergOperator(BaseOperator):
             spark_conn_id: str=None,
             sql_path="",
             iceberg_table_name=None,
-            num_keep_retention_snaps=5,
+            num_keep_retention_snaps=2,
             iceberg_db="default",
+            iceberg_db_stg="default",
             table_properties=None,
             *args,
             **kwargs
@@ -25,6 +26,7 @@ class IcebergOperator(BaseOperator):
         self.iceberg_table_name = iceberg_table_name
         self.num_keep_retention_snaps = num_keep_retention_snaps
         self.iceberg_db = iceberg_db
+        self.iceberg_db_stg = iceberg_db_stg
         self.table_properties = table_properties
 
 
@@ -73,7 +75,7 @@ class IcebergOperator(BaseOperator):
             iceberg_db=self.iceberg_db,
             iceberg_table=self.iceberg_table_name,
             iceberg_columns_properties=self.table_properties,
-            location=f"/staging/{self.iceberg_db}/{self.iceberg_table_name}/"
+            location=f"/business/{self.iceberg_db}/{self.iceberg_table_name}/"
         )
 
         cursor.execute(create_staging_table_sql)
@@ -81,6 +83,10 @@ class IcebergOperator(BaseOperator):
     def run_sql(self, cursor):
         with open(f"/opt/airflow/dags/{self.sql_path}", 'r') as file:
             sql_content = file.read()
+            if "{iceberg_db_stg}" in sql_content:
+                sql_content = sql_content.replace("{iceberg_db_stg}", self.iceberg_db_stg)
+            if "{iceberg_db}" in sql_content:
+                sql_content = sql_content.replace("{iceberg_db}", self.iceberg_db)
         for sql in sql_content.split(';'):
             cursor.execute(sql)
 

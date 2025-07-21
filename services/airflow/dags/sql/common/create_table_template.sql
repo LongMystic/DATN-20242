@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS {iceberg_db}.{iceberg_table} (
+CREATE TABLE IF NOT EXISTS iceberg.{iceberg_db}.{iceberg_table} (
     {iceberg_columns_properties}
 )
 USING iceberg

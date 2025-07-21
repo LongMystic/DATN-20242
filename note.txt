@@ -22,9 +22,17 @@ ALTER TABLE category CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 
 === START HADOOP CLUSTER ===
 docker compose up namenode datanode1 datanode2 resourcemanager nodemanager1 nodemanager2 -d
+docker compose up hive-metastore mysql superset -d
+docker compose up spark-thrift-server -d
+docker compose up statsd-exporter prometheus grafana -d
 
 === START AIRFLOW CLUSTER ===
 docker compose up postgres redis airflow-webserver airflow-scheduler airflow-worker airflow-triggerer airflow-init -d
+
+=== START AIRFLOW LOCAL MODE ===
+docker compose up postgres airflow-webserver airflow-scheduler airflow-init statsd-exporter -d
+docker compose up postgres airflow-webserver airflow-scheduler airflow-init -d
+docker compose up airflow-webserver airflow-scheduler airflow-init -d
 
 docker exec -it namenode sh
 hdfs dfs -setfacl -m user:spark_user:rwx /
@@ -45,3 +53,12 @@ airflow connections add 'spark_conn_id' \
     --conn-schema 'default' \
     --conn-login 'spark_user' \
     --conn-extra '{"auth": "NOSASL"}'
+
+
+avg by (instance) (
+  process_resident_memory_bytes{job=~"namenode|datanode1|datanode2|resourcemanager|nodemanager1|nodemanager2"}
+) / 1024 / 1024
+
+avg by (instance) (
+  process_resident_memory_bytes{job="namenode"}
+) / 1024 / 1024

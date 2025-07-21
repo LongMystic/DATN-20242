@@ -1,18 +1,66 @@
 global:
-  scrape_interval: 5s
+  scrape_interval: 15s
 
 scrape_configs:
-  - job_name: "spark-master"
-    metrics_path: "/metrics/master/prometheus"
-    static_configs:
-      - targets: ["spark-master:8080"]
+#  job in local mode
 
-  - job_name: "spark-worker"
-    metrics_path: "/metrics/worker/prometheus"
-    static_configs:
-      - targets: ["spark-worker:8081"]
+#  - job_name: "spark-master"
+#    metrics_path: "/metrics/master/prometheus"
+#    static_configs:
+#      - targets: ["spark-master:8080"]
+#
+#  - job_name: "spark-worker"
+#    metrics_path: "/metrics/worker/prometheus"
+#    static_configs:
+#      - targets: ["spark-worker:8081"]
 
 #  - job_name: "spark-thriftserver"
 #    metrics_path: "/metrics"
 #    static_configs:
 #      - targets: ["spark-thriftserver:8081"]
+
+
+# job in cluster mode
+
+
+  # namenode
+  - job_name: 'namenode'
+    static_configs:
+      - targets: [ 'namenode:9091' ]
+        labels:
+          component: 'namenode'
+  # datanode 1
+  - job_name: 'datanode1'
+    static_configs:
+      - targets: [ 'datanode1:9092' ]
+        labels:
+          component: 'datanode1'
+  # datanode 2
+  - job_name: 'datanode2'
+    static_configs:
+      - targets: [ 'datanode2:9093' ]
+        labels:
+          component: 'datanode2'
+  # resource manager
+  - job_name: 'resourcemanager'
+    static_configs:
+      - targets: [ 'resourcemanager:9094' ]
+        labels:
+          component: 'resourcemanager'
+  # node manager 1
+  - job_name: 'nodemanager1'
+    static_configs:
+      - targets: [ 'nodemanager1:9095' ]
+        labels:
+          component: 'nodemanager1'
+  # node manager 2
+  - job_name: 'nodemanager2'
+    static_configs:
+      - targets: [ 'nodemanager2:9096' ]
+        labels:
+          component: 'nodemanager2'
+  - job_name: 'airflow'
+    static_configs:
+      - targets: [ 'statsd-exporter:9102' ]
+        labels:
+          component: 'airflow'

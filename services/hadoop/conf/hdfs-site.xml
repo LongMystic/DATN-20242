@@ -24,14 +24,14 @@
     <value>true</value>
   </property>
 
-<!--  <property>-->
-<!--    <name>dfs.namenode.name.dir</name>-->
-<!--    <value>opt/data/namenode</value>-->
-<!--  </property>-->
-<!--  <property>-->
-<!--    <name>dfs.datanode.data.dir</name>-->
-<!--    <value>opt/data/datanode</value>-->
-<!--  </property>-->
+  <property>
+    <name>dfs.namenode.name.dir</name>
+    <value>/opt/data/namenode</value>
+  </property>
+  <property>
+    <name>dfs.datanode.data.dir</name>
+    <value>/opt/data/datanode</value>
+  </property>
   <!-- HA -->
   <property>
     <name>fs.permissions.umask-mode</name>

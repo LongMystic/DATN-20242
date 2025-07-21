@@ -1,4 +1,5 @@
-s = "a INT, b INT, c INT,"
-s = s.strip(",\n")
+from datetime import date
+from dateutil.relativedelta import relativedelta
 
-print(s)
+business_date = '2025-01-01'
+print(business_date.strftime('%Y-%m-%d'))
