@@ -66,7 +66,14 @@ services:
           echo "Formatting NameNode..."
           hdfs namenode -format -force
         fi
-        hdfs namenode
+        hdfs namenode &
+        sleep 5
+        hdfs dfs -setfacl -m user:spark_user:rwx /
+        hdfs dfs -mkdir /tmp
+        hdfs dfs -mkdir -p /user/hive/warehouse
+        hdfs dfs -chmod g+w /tmp
+        hdfs dfs -chmod g+w /user/hive/warehouse
+        wait
     volumes:
       - ./services/hadoop/conf/core-site.xml:/etc/hadoop/core-site.xml
       - ./services/hadoop/conf/hdfs-site.xml:/etc/hadoop/hdfs-site.xml
@@ -264,6 +271,11 @@ services:
       - "4040:4040"
     networks:
       - datn_2025_network
+    depends_on:
+      hive-metastore:
+        condition: service_started
+      namenode:
+        condition: service_healthy
     healthcheck:
       test: [ "CMD", "nc", "-z", "localhost", "10000" ]
       interval: 30s
@@ -291,7 +303,7 @@ services:
       - ./services/hive/jars/mysql-connector-java-8.0.21.jar:/opt/hive/lib/mysql-connector-java-8.0.21.jar
       - ./services/hive/jars/iceberg-hive-runtime-1.3.0.jar:/opt/hive/lib/iceberg-hive-runtime-1.3.0.jar
     entrypoint: ["/bin/bash", "-c", "
-      if ! mysql -h hive-metastore-mysql -u root -proot -e 'use hive_metastore; SELECT * FROM CTLGS LIMIT 1;' &> /dev/null; then
+      if ! mysql -h hive-metastore-mysql -u root -proot -e 'use hive_metastore; SHOW TABLES;' &> /dev/null; then
         echo 'Initializing schema...';
         /opt/hive/bin/schematool -dbType mysql -initSchema;
       else
@@ -299,6 +311,7 @@ services:
       fi;
       /opt/hive/bin/hive --service metastore
     "]
+
     ports:
       - "9083:9083"
     networks:
@@ -315,6 +328,7 @@ services:
 
   # mysql
   mysql:
+    # platform: linux/x86_64 # For Apple Silicon compatibility
     image: mysql:5.7
     container_name: mysql
     mem_limit: 500m
@@ -331,8 +345,8 @@ services:
       - MYSQL_PASSWORD=hive
     ports:
       - "3306:3306"
-    volumes:
-      - ./services/mysql/data:/var/lib/mysql
+    # volumes:
+    #   - ./services/mysql/data:/var/lib/mysql
     networks:
       - datn_2025_network
     healthcheck:
